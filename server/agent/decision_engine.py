@@ -1,5 +1,9 @@
 """Decision engine - main decision loop for agent behavior."""
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from dataclasses import dataclass, field
 from typing import Optional, Any
 from enum import Enum
@@ -11,6 +15,8 @@ from .memory_store import MemoryStore
 from .reflection import ReflectionEngine
 from .context_builder import ContextBuilder
 from .llm_client import LLMClient, MockLLMClient, ModelTier
+
+from logger import logger
 
 
 class ActionType(Enum):
@@ -118,16 +124,21 @@ class DecisionEngine:
 
         # Generate decision
         if self.llm_client:
+            logger.llm_call(context.agent_id, "decision")
             decision = await self.llm_client.generate_decision(
                 full_context,
                 self._format_perception(context.perception),
                 available_actions
             )
+            logger.llm_response(context.agent_id)
         else:
             decision = self._fallback_decision(soul, context)
 
         # Parse decision into action
         action = self._parse_decision(decision)
+
+        # Log the decision
+        logger.decision(context.agent_id, action.action_type.value, action.reasoning)
 
         # Record decision as memory
         await self._record_decision_memory(

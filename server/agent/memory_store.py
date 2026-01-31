@@ -2,11 +2,15 @@
 
 import json
 import os
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from .memory import Memory, MemoryType
+from logger import logger
 
 
 class MemoryStore:
@@ -54,6 +58,8 @@ class MemoryStore:
         with open(memory_file, "w") as f:
             json.dump(data, f, indent=2)
 
+        logger.file_write(str(memory_file))
+
     def add_memory(self, memory: Memory, persist: bool = True) -> None:
         """Add a memory to the store."""
         agent_id = memory.agent_id
@@ -61,6 +67,7 @@ class MemoryStore:
             self.load_memories(agent_id)
 
         self._memories[agent_id].append(memory)
+        logger.memory_add(agent_id, memory.memory_type.value, memory.content)
 
         if persist:
             self.save_memories(agent_id)

@@ -1,10 +1,15 @@
 """Reflection engine - LLM-based synthesis of observations into higher-level insights."""
 
+import sys
+from pathlib import Path
 from typing import Optional
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from .memory import Memory, MemoryType, create_reflection, create_belief
 from .memory_store import MemoryStore
 from .soul import AgentSoul
+from logger import logger
 
 
 class ReflectionEngine:
@@ -89,6 +94,7 @@ Response:"""
         prompt = self.generate_reflection_prompt(soul, observations)
 
         try:
+            logger.llm_call(soul.agent_id, "reflection synthesis")
             response = await self.llm_client.generate(prompt, max_tokens=500)
             reflections = self._parse_reflections(
                 soul.agent_id, response, game_day, observations
@@ -97,11 +103,12 @@ Response:"""
             # Store reflections
             for reflection in reflections:
                 self.memory_store.add_memory(reflection)
+                logger.reflection(soul.agent_id, reflection.content)
 
             return reflections
 
         except Exception as e:
-            print(f"Reflection generation failed: {e}")
+            logger.error(f"Reflection generation failed: {e}", soul.agent_id)
             return self._fallback_reflect(soul, game_day)
 
     def _fallback_reflect(self, soul: AgentSoul, game_day: int) -> list[Memory]:
@@ -239,10 +246,11 @@ Response:"""
                 )
                 self.memory_store.add_memory(belief)
                 soul.add_belief(response)
+                logger.reflection(soul.agent_id, f"BELIEF FORMED: {response}")
                 return belief
 
         except Exception as e:
-            print(f"Belief formation failed: {e}")
+            logger.error(f"Belief formation failed: {e}", soul.agent_id)
 
         return None
 
