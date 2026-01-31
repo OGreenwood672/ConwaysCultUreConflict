@@ -4,3 +4,7 @@ docs
 .claude
 __pycache__/
 server/app.py
+server/culture
+server/emergence
+server/protocol
+server/world
