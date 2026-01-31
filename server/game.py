@@ -1,12 +1,12 @@
 import json
 from typing import Any, List
-from meta_map import Grid
+from meta_map import Metamap
 
 class Game:
     def __init__(self, name: str, websocket: Any):
         self.name = name
         self.websocket = websocket
-        self.meta_map = Grid()
+        self.meta_map = Metamap()
 
     async def stream_json(self, data: dict):
         """
