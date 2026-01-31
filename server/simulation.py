@@ -1,6 +1,6 @@
 from typing import List
 
-from server.game import Game
+from game import Game
 
 
 class Simulation:
