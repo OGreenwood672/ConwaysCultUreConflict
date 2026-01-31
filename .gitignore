@@ -2,3 +2,5 @@
 docs
 .pyre 
 .claude
+__pycache__/
+server/app.py
