@@ -1,5 +1,5 @@
 from typing import Optional
-from .actions import SimAction, SimActionType
+from actions import SimAction, SimActionType
 
 
 class SimulationInterface:
@@ -48,8 +48,6 @@ class SimulationInterface:
         """
         # TODO: Implement real LLM decision making
         action = SimAction(
-                    tick=tick,
-                    person_id=perception["id"],
-                    action_type=SimActionType.IDLE
-                )
+            tick=tick, person_id=perception["id"], action_type=SimActionType.IDLE
+        )
         return action
