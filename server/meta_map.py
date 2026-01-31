@@ -1,12 +1,56 @@
 from typing import Optional
+from dataclasses import dataclass
 
 NUM_ROWS = 10
 NUM_COLS = 10
 
+# ANSI color codes for different cultures
+CULTURE_COLORS = [
+    "\033[91m",  # Red
+    "\033[92m",  # Green
+    "\033[93m",  # Yellow
+    "\033[94m",  # Blue
+    "\033[95m",  # Magenta
+    "\033[96m",  # Cyan
+    "\033[97m",  # White
+    "\033[31m",  # Dark Red
+    "\033[32m",  # Dark Green
+    "\033[33m",  # Dark Yellow
+]
+RESET_COLOR = "\033[0m"
+
+
+def get_culture_color(culture_id: int) -> str:
+    """Get color for a culture based on its ID"""
+    return CULTURE_COLORS[culture_id % len(CULTURE_COLORS)]
+
+
+@dataclass
+class God:
+    md: str
+
+
+@dataclass
+class Culture:
+    id: int
+    md: str
+
+
+@dataclass
+class Person:
+    id: int
+    culture: Culture
+    md: str
+
+
+@dataclass
+class Building:
+    culture: Culture
+
 
 class Cell:
-    people: list[int]
-    building: Optional[int]
+    people: list[Person]
+    building: Optional[Building]
 
     def __init__(self):
         self.people = []
@@ -14,42 +58,55 @@ class Cell:
 
     def pprint(self, width):
         """Pretty print the cell contents - returns list of lines"""
-        # Line 1: Building info
+        # Line 1: Building info with color based on culture
         if self.building is not None:
-            line1 = f"B:{self.building}"
+            color = get_culture_color(self.building.culture.id)
+            line1 = f"{color}B:C{self.building.culture.id}{RESET_COLOR}"
+            # Calculate padding accounting for ANSI codes
+            visible_len = len(f"B:C{self.building.culture.id}")
+            padding = width - visible_len
+            line1 = line1 + " " * padding
         else:
-            line1 = "-"
+            line1 = "-".ljust(width)
 
-        # Line 2: People IDs (compact format without spaces)
+        # Line 2: People IDs with colors based on their cultures
         if self.people:
-            # Compact format: [id,id,id] without spaces
-            people_str = "[" + ",".join(str(p) for p in self.people) + "]"
+            colored_ids = []
+            for p in self.people:
+                color = get_culture_color(p.culture.id)
+                colored_ids.append(f"{color}{p.id}{RESET_COLOR}")
+            people_str = "[" + ",".join(colored_ids) + "]"
+            # Calculate visible length (without ANSI codes)
+            visible_len = len("[" + ",".join(str(p.id) for p in self.people) + "]")
+            padding = width - visible_len
+            people_str = people_str + " " * padding
         else:
-            people_str = "[]"
+            people_str = "[]".ljust(width)
 
-        return [line1.ljust(width), people_str.ljust(width)]
+        return [line1, people_str]
 
 
-class Grid:
+class Metamap:
     def __init__(self):
         self.grid = [[Cell() for _ in range(NUM_COLS)] for _ in range(NUM_ROWS)]
 
     def pprint(self):
         """Pretty print the entire grid with box-drawing characters"""
-        # Calculate maximum width needed per column
+        # Calculate maximum width needed per column (based on visible characters)
         col_widths = []
         for col_idx in range(NUM_COLS):
             max_width = 0
             for row in self.grid:
                 cell = row[col_idx]
-                # Check building width
-                building_str = (
-                    f"B:{cell.building}" if cell.building is not None else "-"
-                )
+                # Check building width (visible characters only)
+                if cell.building is not None:
+                    building_str = f"B:C{cell.building.culture.id}"
+                else:
+                    building_str = "-"
                 max_width = max(max_width, len(building_str))
-                # Check people list width
+                # Check people list width (visible characters only)
                 if cell.people:
-                    people_str = "[" + ",".join(str(p) for p in cell.people) + "]"
+                    people_str = "[" + ",".join(str(p.id) for p in cell.people) + "]"
                 else:
                     people_str = "[]"
                 max_width = max(max_width, len(people_str))
@@ -91,5 +148,24 @@ class Grid:
 
         # Legend
         print("\nLegend:")
-        print("  Line 1: Building (B:id or -)")
-        print("  Line 2: People IDs [list]")
+        print("  Line 1: Building (B:Cid) - colored by culture")
+        print("  Line 2: People IDs [list] - colored by culture")
+        print("\nCultures:")
+        # Show color samples for cultures seen in the grid
+        cultures_seen = set()
+        for row in self.grid:
+            for cell in row:
+                if cell.building:
+                    cultures_seen.add(cell.building.culture.id)
+                for person in cell.people:
+                    cultures_seen.add(person.culture.id)
+        for culture_id in sorted(cultures_seen):
+            color = get_culture_color(culture_id)
+            print(f"  Culture {culture_id}: {color}████{RESET_COLOR}")
+
+
+@dataclass
+class Simulation:
+    god: God
+    metamaps: list[Metamap]
+    people: list[Person]
