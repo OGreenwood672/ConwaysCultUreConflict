@@ -53,7 +53,7 @@ def create_test_world_state(tick: int) -> list[dict]:
     ]
 
 
-def run_test(use_mock: bool = False, num_ticks: int = 3):
+def run_test(use_mock: bool = False, num_ticks: int = 3, end_day: bool = False):
     """Run the Bedrock simulation test."""
     print("=" * 60)
     print(f"Bedrock Simulation Test ({'MOCK' if use_mock else 'REAL LLM'})")
@@ -102,6 +102,21 @@ def run_test(use_mock: bool = False, num_ticks: int = 3):
 
         print()
 
+    # End day and update culture
+    if end_day:
+        print("=" * 60)
+        print("Ending day - updating culture.md...")
+        print("=" * 60)
+        result = sim.end_day(culture_id="minecraft")
+        print(f"Events processed: {result['events_processed']}")
+        print(f"New day: {result.get('day', 'N/A')}")
+        if result.get('culture_update'):
+            print()
+            print("Updated culture.md:")
+            print("-" * 40)
+            print(result['culture_update'][:500] + "..." if len(result.get('culture_update', '')) > 500 else result['culture_update'])
+        print()
+
     print("=" * 60)
     print("Test complete!")
     print("=" * 60)
@@ -122,6 +137,11 @@ if __name__ == "__main__":
         default=3,
         help="Number of ticks to run (default: 3)"
     )
+    parser.add_argument(
+        "--end-day",
+        action="store_true",
+        help="End the day and update culture.md based on events"
+    )
 
     args = parser.parse_args()
 
@@ -129,4 +149,4 @@ if __name__ == "__main__":
     import os
     os.chdir(Path(__file__).parent.parent.parent)
 
-    run_test(use_mock=args.mock, num_ticks=args.ticks)
+    run_test(use_mock=args.mock, num_ticks=args.ticks, end_day=args.end_day)
