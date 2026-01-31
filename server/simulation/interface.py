@@ -183,7 +183,8 @@ class SimulationInterface:
         action_str = decision.get("action", "idle").lower()
 
         # Parse move(dx, dy)
-        move_match = re.match(r"move\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", action_str)
+        move_match = re.match(
+            r"move\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", action_str)
         if move_match:
             return SimAction(
                 tick=tick,
