@@ -2,7 +2,6 @@ import json
 from typing import Any, List
 from meta_map import Metamap
 
-
 class Game:
     def __init__(self, name: str, websocket: Any):
         self.name = name
