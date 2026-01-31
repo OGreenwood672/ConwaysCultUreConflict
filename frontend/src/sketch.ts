@@ -33,8 +33,8 @@ export const sketch = (p: p5) => {
                 acc[item.id] = {
                     id: Number(item.id),
                     culture: Number(item.culture),
-                    x: Number(item.x),
-                    y: Number(item.y),
+                    x: Number(item.initial_position[0]),
+                    y: Number(item.initial_position[1]),
                 };
                 return acc;
             }, {});
@@ -64,8 +64,8 @@ export const sketch = (p: p5) => {
             curr_tick_actions = [];
             curr_tick++;
             while (logEntry && parseInt(logEntry.tick) === curr_tick) {
-                logEntry = sim_log.getNextLine();
                 curr_tick_actions.push(logEntry);
+                logEntry = sim_log.getNextLine();
             }
         }
 
