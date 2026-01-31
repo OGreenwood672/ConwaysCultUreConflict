@@ -15,6 +15,9 @@ export const sketch = (p: p5) => {
     let WIDTH = p.windowWidth * 0.95;
     let HEIGHT = p.windowHeight * 0.95;
 
+    let width_scale = WIDTH / 300;
+    let height_scale = HEIGHT / 100;
+
     let buildings = [];
 
     const TIME_PER_TICK = 100;
@@ -77,8 +80,8 @@ export const sketch = (p: p5) => {
 
             switch (action.action) {
                 case "move":
-                    person.x = parseFloat(action.new_x);
-                    person.y = parseFloat(action.new_y);
+                    person.x = parseFloat(action.x);
+                    person.y = parseFloat(action.y);
                     break;
                 case "build":
                     buildings.push({x: action.x, y: action.y});
@@ -106,13 +109,13 @@ export const sketch = (p: p5) => {
         for (let key in person_culture) {
             const person: Person = person_culture[key];
             p.fill(person.culture * 50 % 255, 100, 255 - (person.culture * 50 % 255));
-            p.circle(person.x, person.y, 5);
+            p.circle(person.x * width_scale, person.y * height_scale, 5 * ((width_scale + height_scale) / 2));
         }
 
         // Draw buildings
         p.fill(150);
         for (let building of buildings) {
-            p.rect(building.x, building.y, 10, 10);
+            p.rect(building.x * width_scale, building.y * height_scale, 10 * width_scale, 10 * height_scale);
         }
         
     };
