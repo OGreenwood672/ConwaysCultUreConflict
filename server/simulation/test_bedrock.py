@@ -13,11 +13,15 @@ Runs 3 ticks with full context injection and prints actions + reasoning.
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent.parent))  # noqa: E402
+
+from simulation.interface import SimulationInterface, PERSON_TO_AGENT
+import sys
+from pathlib import Path
+
 # Add parent directories to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from simulation.interface import SimulationInterface, PERSON_TO_AGENT
 
 
 def create_test_world_state(tick: int) -> list[dict]:
@@ -53,7 +57,7 @@ def create_test_world_state(tick: int) -> list[dict]:
     ]
 
 
-def run_test(use_mock: bool = False, num_ticks: int = 3):
+def run_test(use_mock: bool = False, num_ticks: int = 3, end_day: bool = False):
     """Run the Bedrock simulation test."""
     print("=" * 60)
     print(f"Bedrock Simulation Test ({'MOCK' if use_mock else 'REAL LLM'})")
@@ -89,7 +93,7 @@ def run_test(use_mock: bool = False, num_ticks: int = 3):
         actions = sim.process_tick(tick, world_state)
 
         for action in actions:
-            person_id = action["person_id"]
+            person_id = action.to_dict()["person_id"]
             agent_id = PERSON_TO_AGENT.get(person_id, "unknown")
             culture = world_state[person_id]["culture"]
 
@@ -100,6 +104,25 @@ def run_test(use_mock: bool = False, num_ticks: int = 3):
             print(f"    LLM Decision: {decision}")
             print(f"    SimAction: {action}")
 
+        print()
+
+    # End day and update culture
+    if end_day:
+        print("=" * 60)
+        print("Ending day - updating culture.md...")
+        print("=" * 60)
+        result = sim.end_day(culture_id="alpha")
+        print(f"Events processed: {result['events_processed']}")
+        print(f"New day: {result.get('day', 'N/A')}")
+        if result.get("culture_update"):
+            print()
+            print("Updated culture.md:")
+            print("-" * 40)
+            print(
+                result["culture_update"][:500] + "..."
+                if len(result.get("culture_update", "")) > 500
+                else result["culture_update"]
+            )
         print()
 
     print("=" * 60)
@@ -114,19 +137,22 @@ if __name__ == "__main__":
     parser.add_argument(
         "--mock",
         action="store_true",
-        help="Use mock LLM instead of real Bedrock (default: use real LLM)"
+        help="Use mock LLM instead of real Bedrock (default: use real LLM)",
     )
     parser.add_argument(
-        "--ticks",
-        type=int,
-        default=3,
-        help="Number of ticks to run (default: 3)"
+        "--ticks", type=int, default=3, help="Number of ticks to run (default: 3)"
+    )
+    parser.add_argument(
+        "--end-day",
+        action="store_true",
+        help="End the day and update culture.md based on events",
     )
 
     args = parser.parse_args()
 
     # Change to project root for correct world path
     import os
+
     os.chdir(Path(__file__).parent.parent.parent)
 
-    run_test(use_mock=args.mock, num_ticks=args.ticks)
+    run_test(use_mock=args.mock, num_ticks=args.ticks, end_day=args.end_day)

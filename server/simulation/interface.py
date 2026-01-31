@@ -13,7 +13,6 @@ from agent.soul_manager import SoulManager  # noqa: E402
 from agent.llm_client import LLMClient, MockLLMClient  # noqa: E402
 from agent.context_builder import ContextBuilder  # noqa: E402
 
-
 # Mapping from person_id to agent_id
 PERSON_TO_AGENT = {
     0: "agent_001",  # The Builder
@@ -47,6 +46,10 @@ class SimulationInterface:
 
         # Store last decisions with full LLM output (for debugging/display)
         self._last_decisions: dict[int, dict] = {}
+
+        # Track daily events for culture updates
+        self._daily_events: list[dict] = []
+        self._current_day: int = 1
 
     def initialize(self, start_state: list[dict]) -> None:
         """
@@ -85,6 +88,20 @@ class SimulationInterface:
                 action = self._llm_decision(tick, person_perception)
 
             actions.append(action)
+
+            # Record event for culture tracking
+            person_id = person_perception["id"]
+            agent_id = PERSON_TO_AGENT.get(person_id, f"person_{person_id}")
+            decision = self._last_decisions.get(person_id, {})
+            self._daily_events.append(
+                {
+                    "agent_id": agent_id,
+                    "action": action,
+                    "reasoning": decision.get("reasoning"),
+                    "speech": decision.get("speech"),
+                    "tick": tick,
+                }
+            )
 
         return actions
 
@@ -183,8 +200,7 @@ class SimulationInterface:
         action_str = decision.get("action", "idle").lower()
 
         # Parse move(dx, dy)
-        move_match = re.match(
-            r"move\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", action_str)
+        move_match = re.match(r"move\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", action_str)
         if move_match:
             return SimAction(
                 tick=tick,
@@ -219,3 +235,100 @@ class SimulationInterface:
 
         # Default to idle
         return SimAction(tick=tick, person_id=person_id, action_type=SimActionType.IDLE)
+
+    def end_day(self, culture_id: str = "alpha") -> dict:
+        """
+        End the current day and update culture.md based on agent behavior.
+
+        Args:
+            culture_id: The culture to update
+
+        Returns:
+            Dict with 'success', 'culture_update', and 'events_processed'
+        """
+        if not self._daily_events:
+            return {
+                "success": True,
+                "culture_update": None,
+                "events_processed": 0,
+                "message": "No events to process",
+            }
+
+        # Build context for culture update
+        context = self._context_builder.build_culture_update_context(
+            culture_id=culture_id, daily_events=self._daily_events
+        )
+
+        # Generate culture update via LLM
+        culture_update = asyncio.run(self._generate_culture_update(context, culture_id))
+
+        # Write updated culture.md
+        culture_path = Path(self.world_path) / "cultures" / culture_id / "culture.md"
+        culture_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(culture_path, "w") as f:
+            f.write(culture_update)
+
+        # Invalidate cache so next read gets fresh content
+        self._context_builder.invalidate_culture_cache(culture_id)
+
+        # Clear daily events and increment day
+        events_count = len(self._daily_events)
+        self._daily_events = []
+        self._current_day += 1
+
+        return {
+            "success": True,
+            "culture_update": culture_update,
+            "events_processed": events_count,
+            "day": self._current_day,
+        }
+
+    async def _generate_culture_update(self, context: str, culture_id: str) -> str:
+        """Generate updated culture.md content via LLM."""
+        prompt = f"""{context}
+
+---
+
+Based on today's events, write an updated culture.md file for Day {self._current_day + 1}.
+
+Update the following sections based on what happened:
+- Current State (day number, any new factions, conflicts)
+- Established Norms (patterns of behavior that repeated)
+- Economic Patterns (any trading, resource sharing)
+- Social Structure (leadership emerging, alliances, rivalries)
+- Recent Events (summary of today's significant events)
+- Cultural Memory (any events significant enough to remember)
+
+Keep sections that haven't changed. Only add to Cultural Memory for truly significant events.
+
+Write the complete updated culture.md file:"""
+
+        if self.use_mock_llm:
+            # Mock response for testing
+            return f"""# {culture_id.title()} Culture - Day {self._current_day + 1}
+
+## Current State
+
+- **Day**: {self._current_day + 1}
+- **Population**: 3 agents
+- **Events Today**: {len(self._daily_events)} actions recorded
+
+## Recent Events
+
+*Day {self._current_day}*
+{chr(10).join(f"- {e['agent_id']}: {e['action']}" for e in self._daily_events[:5])}
+
+---
+
+*Mock culture update - use real LLM for meaningful updates.*
+"""
+
+        response = await self._llm_client.generate(
+            prompt=prompt,
+            system_prompt="You are a cultural historian documenting the evolution of a society. Write in markdown format.",
+            tier=ModelTier.BALANCED,
+            max_tokens=2000,
+            temperature=0.7,
+        )
+
+        return response.strip()
