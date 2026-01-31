@@ -1,16 +1,17 @@
-import asyncio
-import re
 import sys
 from pathlib import Path
-from typing import Optional
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))  # noqa: E402
 
-from .actions import SimAction, SimActionType
-from agent.context_builder import ContextBuilder
-from agent.llm_client import LLMClient, MockLLMClient
-from agent.soul_manager import SoulManager
-from agent.soul import AgentSoul
+import asyncio  # noqa: E402
+import re  # noqa: E402
+from typing import Optional  # noqa: E402
+
+from actions import SimAction, SimActionType  # noqa: E402
+from agent.soul import AgentSoul  # noqa: E402
+from agent.soul_manager import SoulManager  # noqa: E402
+from agent.llm_client import LLMClient, MockLLMClient  # noqa: E402
+from agent.context_builder import ContextBuilder  # noqa: E402
 
 
 # Mapping from person_id to agent_id
@@ -83,7 +84,7 @@ class SimulationInterface:
             else:
                 action = self._llm_decision(tick, person_perception)
 
-            actions.append(action.to_dict())
+            actions.append(action)
 
         return actions
 
@@ -108,16 +109,14 @@ class SimulationInterface:
         if not soul:
             # No soul mapping, return idle
             return SimAction(
-                tick=tick,
-                person_id=person_id,
-                action_type=SimActionType.IDLE
+                tick=tick, person_id=person_id, action_type=SimActionType.IDLE
             )
 
         # Build full context
         context = self._context_builder.build_full_context(
             soul=soul,
             memories=[],  # No memories for now
-            perception=perception
+            perception=perception,
         )
 
         # Format perception for the prompt
@@ -128,7 +127,7 @@ class SimulationInterface:
             self._llm_client.generate_decision(
                 context=context,
                 perception=perception_str,
-                available_actions=AVAILABLE_ACTIONS
+                available_actions=AVAILABLE_ACTIONS,
             )
         )
 
@@ -146,25 +145,17 @@ class SimulationInterface:
             self._last_decisions[person_id] = {
                 "action": "move(1, 0)",
                 "reasoning": "Mock: Moving to explore",
-                "speech": None
+                "speech": None,
             }
             return SimAction(
-                tick=tick,
-                person_id=person_id,
-                action_type=SimActionType.MOVE,
-                x=1,
-                y=0
+                tick=tick, person_id=person_id, action_type=SimActionType.MOVE, x=1, y=0
             )
         self._last_decisions[person_id] = {
             "action": "idle",
             "reasoning": "Mock: Observing surroundings",
-            "speech": None
+            "speech": None,
         }
-        return SimAction(
-            tick=tick,
-            person_id=person_id,
-            action_type=SimActionType.IDLE
-        )
+        return SimAction(tick=tick, person_id=person_id, action_type=SimActionType.IDLE)
 
     def _format_perception(self, perception: dict) -> str:
         """Format perception dict into a readable string."""
@@ -185,7 +176,9 @@ class SimulationInterface:
         """Get the full LLM decision for a person from the last tick."""
         return self._last_decisions.get(person_id)
 
-    def _parse_llm_decision(self, tick: int, person_id: int, decision: dict) -> SimAction:
+    def _parse_llm_decision(
+        self, tick: int, person_id: int, decision: dict
+    ) -> SimAction:
         """Parse LLM decision dict into a SimAction."""
         action_str = decision.get("action", "idle").lower()
 
@@ -197,18 +190,20 @@ class SimulationInterface:
                 person_id=person_id,
                 action_type=SimActionType.MOVE,
                 x=int(move_match.group(1)),
-                y=int(move_match.group(2))
+                y=int(move_match.group(2)),
             )
 
         # Parse communicate(dx, dy)
-        comm_match = re.match(r"communicate\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", action_str)
+        comm_match = re.match(
+            r"communicate\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", action_str
+        )
         if comm_match:
             return SimAction(
                 tick=tick,
                 person_id=person_id,
                 action_type=SimActionType.COMMUNICATE,
                 x=int(comm_match.group(1)),
-                y=int(comm_match.group(2))
+                y=int(comm_match.group(2)),
             )
 
         # Parse build(block_type)
@@ -218,12 +213,8 @@ class SimulationInterface:
                 tick=tick,
                 person_id=person_id,
                 action_type=SimActionType.BUILD,
-                target=build_match.group(1).strip()
+                target=build_match.group(1).strip(),
             )
 
         # Default to idle
-        return SimAction(
-            tick=tick,
-            person_id=person_id,
-            action_type=SimActionType.IDLE
-        )
+        return SimAction(tick=tick, person_id=person_id, action_type=SimActionType.IDLE)

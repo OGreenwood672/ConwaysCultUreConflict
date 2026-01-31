@@ -1,6 +1,8 @@
+import csv
 import json
 from dataclasses import dataclass
 from interface import SimulationInterface
+from actions import SimAction, SimActionType
 
 
 def relative(pos1, pos2):
@@ -89,8 +91,50 @@ def send_get_action_json(action_json):
     pass
 
 
-def update_world(updates, people, world):
-    pass
+# def parse_updates(updates):
+#     return [SimAction.from_dict(u) for u in updates]
+
+
+def update_world(updates, people, buildings, csv_writer):
+    people_by_id = {p.id: p for p in people}
+    pos_to_person = {(p.pos.x, p.pos.y): p for p in people}
+
+    for action in updates:
+        person = people_by_id.get(action.person_id)
+        if not person:
+            continue
+
+        other_agent_id = ""
+
+        if action.action_type == SimActionType.MOVE:
+            person.pos.x += action.x
+            person.pos.y += action.y
+        elif action.action_type == SimActionType.BUILD:
+            buildings.append(
+                Building(
+                    id=len(buildings),
+                    culture=person.culture,
+                    pos=Pos(person.pos.x, person.pos.y),
+                )
+            )
+        elif action.action_type == SimActionType.COMMUNICATE:
+            target = pos_to_person.get(
+                (person.pos.x + action.x, person.pos.y + action.y)
+            )
+            if target:
+                other_agent_id = target.id
+
+        csv_writer.writerow(
+            [
+                action.tick,
+                action.person_id,
+                action.action_type.value,
+                person.pos.x,
+                person.pos.y,
+                other_agent_id,
+                person.culture,
+            ]
+        )
 
 
 def start():
@@ -122,10 +166,16 @@ def start():
 
     give_green_what_he_really_really_wants(people)
 
-    for tick in range(2):
-        action_json = get_action_json(people, buildings)
-        updates = simulation_interface.process_tick(tick, action_json)
-        update_world(updates, people, buildings)
+    with open("frontend/public/logs/updates.csv", "w", newline="") as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(
+            ["tick", "agent_id", "action", "x", "y", "other_agent_id", "culture"]
+        )
+
+        for tick in range(2):
+            action_json = get_action_json(people, buildings)
+            updates = simulation_interface.process_tick(tick, action_json)
+            update_world(updates, people, buildings, csv_writer)
 
 
 if __name__ == "__main__":
