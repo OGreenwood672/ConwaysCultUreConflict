@@ -1,10 +1,8 @@
-
-
 import math
-from random import random
+from random import random, randint
 import pygame
 
-from asteroid.globals import ASTEROID_SPEED, WHITE, wrap_position
+from globals import ASTEROID_SPEED, WHITE, wrap_position
 
 
 class Asteroid:
@@ -13,10 +11,10 @@ class Asteroid:
         self.y = y
         self.size = size  # 3 = large, 2 = medium, 1 = small
         self.radius = size * 15
-        
+
         # Random velocity
-        angle = random.uniform(0, 360)
-        speed = random.uniform(1, ASTEROID_SPEED)
+        angle = randint(0, 360)
+        speed = randint(1, ASTEROID_SPEED)
         rad = math.radians(angle)
         self.vx = math.cos(rad) * speed
         self.vy = math.sin(rad) * speed
@@ -28,3 +26,4 @@ class Asteroid:
 
     def draw(self, surface):
         pygame.draw.circle(surface, WHITE, (int(self.x), int(self.y)), self.radius, 2)
+

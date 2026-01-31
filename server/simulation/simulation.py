@@ -87,14 +87,6 @@ def get_action_json(people, buildings):
     return json
 
 
-def send_get_action_json(action_json):
-    pass
-
-
-# def parse_updates(updates):
-#     return [SimAction.from_dict(u) for u in updates]
-
-
 def update_world(updates, people, buildings, csv_writer):
     people_by_id = {p.id: p for p in people}
     pos_to_person = {(p.pos.x, p.pos.y): p for p in people}

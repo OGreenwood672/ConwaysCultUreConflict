@@ -1,8 +1,6 @@
-
-
 import pygame
 import math
-from asteroid.globals import BULLET_LIFETIME, BULLET_SPEED, WHITE, wrap_position
+from globals import BULLET_LIFETIME, BULLET_SPEED, WHITE, wrap_position
 
 
 class Bullet:
@@ -14,7 +12,7 @@ class Bullet:
         # Calculate velocity based on angle
         rad = math.radians(self.angle)
         self.vx = math.cos(rad) * BULLET_SPEED
-        self.vy = -math.sin(rad) * BULLET_SPEED 
+        self.vy = -math.sin(rad) * BULLET_SPEED
 
     def update(self):
         self.x += self.vx
@@ -24,3 +22,4 @@ class Bullet:
 
     def draw(self, surface):
         pygame.draw.circle(surface, WHITE, (int(self.x), int(self.y)), 3)
+
