@@ -107,7 +107,7 @@ class AgentSoul:
     emotional_state: str = "neutral"
 
     # Metadata
-    culture_id: str = "minecraft"  # Which culture this agent belongs to
+    culture_id: str = "alpha"  # Which culture this agent belongs to
     spawn_day: int = 1
 
     def get_relationship(self, other_agent_id: str) -> Relationship:

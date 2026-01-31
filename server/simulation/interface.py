@@ -245,7 +245,7 @@ class SimulationInterface:
             action_type=SimActionType.IDLE
         )
 
-    def end_day(self, culture_id: str = "minecraft") -> dict:
+    def end_day(self, culture_id: str = "alpha") -> dict:
         """
         End the current day and update culture.md based on agent behavior.
 

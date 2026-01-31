@@ -107,7 +107,7 @@ def run_test(use_mock: bool = False, num_ticks: int = 3, end_day: bool = False):
         print("=" * 60)
         print("Ending day - updating culture.md...")
         print("=" * 60)
-        result = sim.end_day(culture_id="minecraft")
+        result = sim.end_day(culture_id="alpha")
         print(f"Events processed: {result['events_processed']}")
         print(f"New day: {result.get('day', 'N/A')}")
         if result.get('culture_update'):
