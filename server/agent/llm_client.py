@@ -17,9 +17,10 @@ class ModelTier(Enum):
 class LLMConfig:
     """Configuration for LLM client."""
     aws_region: str = "us-east-1"
-    fast_model_id: str = "anthropic.claude-3-haiku-20240307-v1:0"
-    balanced_model_id: str = "anthropic.claude-3-5-sonnet-20241022-v2:0"
-    powerful_model_id: str = "anthropic.claude-3-5-sonnet-20241022-v2:0"
+    # Use cross-region inference profile format for newer models
+    fast_model_id: str = "us.anthropic.claude-3-5-haiku-20241022-v1:0"
+    balanced_model_id: str = "us.anthropic.claude-3-5-sonnet-20241022-v2:0"
+    powerful_model_id: str = "us.anthropic.claude-3-5-sonnet-20241022-v2:0"
     max_retries: int = 3
     default_max_tokens: int = 1024
     default_temperature: float = 0.7
