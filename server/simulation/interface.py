@@ -6,7 +6,7 @@ from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from .actions import SimAction, SimActionType
+from simulation.actions import SimAction, SimActionType
 from agent.context_builder import ContextBuilder
 from agent.llm_client import LLMClient, MockLLMClient
 from agent.soul_manager import SoulManager
