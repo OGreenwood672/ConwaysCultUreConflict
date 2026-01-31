@@ -25,35 +25,75 @@ class Building:
     pos: Pos
 
 
-people = [Person(0, 0, Pos(0, 0)), Person(1, 0, Pos(1, 3))]
-buildings = [Building(0, 0, Pos(1, 0)), Building(1, 1, Pos(1, 1))]
+def get_start_json(people):
+    json = []
 
-for person in people:
-    json = {
-        "id": person.id,
-        "culture": person.culture,
-        "relative_people": [
+    for person in people:
+        json.append({"id": person.id, "culture": person.culture})
+
+    return json
+
+
+def get_action_json(people, buildings):
+    json = []
+
+    for person in people:
+        json.append(
             {
-                "id": other.id,
-                "culture": other.culture,
-                "my_culture": person.culture == other.culture,
-                "relative_pos": relative(person.pos, other.pos),
+                "id": person.id,
+                "culture": person.culture,
+                "relative_people": [
+                    {
+                        "id": other.id,
+                        "culture": other.culture,
+                        "my_culture": person.culture == other.culture,
+                        "relative_pos": relative(person.pos, other.pos),
+                    }
+                    for other in people
+                    if person.id != other.id
+                ],
+                "relative_buildings": [
+                    {
+                        "id": building.id,
+                        "culture": building.culture,
+                        "my_culture": person.culture == building.culture,
+                        "relative_pos": relative(person.pos, building.pos),
+                    }
+                    for building in buildings
+                ],
             }
-            for other in people
-            if person.id != other.id
-        ],
-        "relative_buildings": [
-            {
-                "id": building.id,
-                "culture": building.culture,
-                "my_culture": person.culture == building.culture,
-                "relative_pos": relative(person.pos, building.pos),
-            }
-            for building in buildings
-        ],
-    }
+        )
 
-    print(json)
+    return json
 
-# def start():
-#     for i in range
+
+def start():
+    cultures = [i for i in range(2)]
+
+    culture_start = [(0, 0), (5, 5)]
+
+    individual_id = 0
+
+    num_individuals = 5
+
+    people = []
+    buildings = []
+
+    for culture in cultures:
+        for _ in range(num_individuals):
+            people.append(
+                Person(
+                    id=individual_id, culture=culture, pos=Pos(*culture_start[culture])
+                )
+            )
+
+            individual_id += 1
+
+    get_start_json(people)
+
+    for _ in range(2):
+        json = get_action_json(people, buildings)
+
+
+if __name__ == "__main__":
+    start()
