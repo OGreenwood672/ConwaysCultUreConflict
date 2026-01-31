@@ -14,8 +14,6 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont("arial", 30)
 
 
-# --- MAIN GAME LOOP ---
-
 def main():
     player = Player()
     asteroids = []

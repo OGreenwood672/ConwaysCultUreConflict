@@ -3,14 +3,14 @@
 import { CsvStreamer } from "./csv_streamer";
 import type { Person } from "./person";
 
-const SIM_LOG = "http://localhost:5173/sim_log.csv";
-const PERSON_CULTURE = "http://localhost:5173/person_culture.json";
+const SIM_LOG = "http://localhost:5173/logs/updates.csv";
+const PERSON_CULTURE = "http://localhost:5173/logs/start.json";
 
 
 export const sketch = (p: p5) => {
 
     let sim_log: CsvStreamer;
-    let person_culture: any = {};    
+    let person_culture: any = {};
 
     let WIDTH = p.windowWidth * 0.95;
     let HEIGHT = p.windowHeight * 0.95;
@@ -28,7 +28,7 @@ export const sketch = (p: p5) => {
         // Load small file normally
         p.loadJSON(PERSON_CULTURE, (data: any[]) => {
             // data is already a standard JS array
-            person_culture = data.reduce((acc: any, item: any) => {
+            person_culture = data["bob"].reduce((acc: any, item: any) => {
                 // Use direct property access (item.id), not .get()
                 acc[item.id] = {
                     id: Number(item.id),
@@ -38,6 +38,7 @@ export const sketch = (p: p5) => {
                 };
                 return acc;
             }, {});
+            console.log(person_culture)
         });
     };
 
@@ -94,6 +95,8 @@ export const sketch = (p: p5) => {
                         x: parseFloat(action.x),
                         y: parseFloat(action.y),
                     };
+                    break;
+                default:
                     break;
             }
         
