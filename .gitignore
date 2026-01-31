@@ -8,3 +8,5 @@ server/culture
 server/emergence
 server/protocol
 server/world
+
+node_modules/
