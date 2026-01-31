@@ -13,32 +13,32 @@ class Game:
         Streams a JSON-encoded dictionary to the associated websocket.
         """
         await self.websocket.send(json.dumps(data))
-    
-    def add_player():
+
+    def add_player(self):
         """
         Placeholder method for adding a player to the game.
         """
         pass
 
-    def remove_player():
+    def remove_player(self):
         """
         Placeholder method for removing a player from the game.
         """
         pass
 
-    def get_relative_locations(player_id: str) -> List[str]:
+    def get_relative_locations(self, player_id: str) -> List[str]:
         """
         Placeholder method for getting relative locations for a player.
         """
-        pass
+        return []
 
-    def move_player(player_id: str, direction: str):
+    def move_player(self, player_id: str, direction: str):
         """
         Placeholder method for moving a player within the game.
         """
         pass
 
-    def make_building(building_type: str):
+    def make_building(self, building_type: str):
         """
         Placeholder method for making a building in the game.
         """

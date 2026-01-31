@@ -162,10 +162,3 @@ class Metamap:
         for culture_id in sorted(cultures_seen):
             color = get_culture_color(culture_id)
             print(f"  Culture {culture_id}: {color}████{RESET_COLOR}")
-
-
-@dataclass
-class Simulation:
-    god: God
-    metamaps: list[Metamap]
-    people: list[Person]
