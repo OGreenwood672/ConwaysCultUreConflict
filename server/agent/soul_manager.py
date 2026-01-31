@@ -2,10 +2,14 @@
 
 import os
 import re
+import sys
 from pathlib import Path
 from typing import Optional
 
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from .soul import AgentSoul, Relationship, TrustLevel, Drives
+from logger import logger
 
 
 class SoulManager:
@@ -166,6 +170,8 @@ class SoulManager:
 
         with open(status_path, "w") as f:
             f.write("\n".join(lines))
+
+        logger.file_write(str(status_path))
 
     def list_agents(self) -> list[str]:
         """List all agent IDs in the world."""
