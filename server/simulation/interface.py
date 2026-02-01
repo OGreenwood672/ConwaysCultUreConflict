@@ -7,7 +7,7 @@ import asyncio  # noqa: E402
 import re  # noqa: E402
 from typing import Optional  # noqa: E402
 
-from actions import SimAction, SimActionType  # noqa: E402
+from actions import SimAction, SimActionType, get_available_actions, ACTION_DESCRIPTIONS  # noqa: E402
 from agent.soul import AgentSoul  # noqa: E402
 from agent.soul_manager import SoulManager  # noqa: E402
 from agent.llm_client import LLMClient, MockLLMClient, ModelTier  # noqa: E402
@@ -19,12 +19,6 @@ PERSON_TO_AGENT = {
     1: "agent_002",  # The Seeker
     2: "agent_003",  # The Merchant
 }
-
-AVAILABLE_ACTIONS = [
-    "move(dx, dy) - Move in a direction. Example: move(1, 0) moves right, move(0, -1) moves up",
-    "build(type) - Build at your position. Types: shelter, wall, marker, storage. Example: build(shelter)",
-    "communicate(dx, dy) - Talk to someone at that position. Use coordinates from 'Nearby People'. Example: communicate(2, 1)",
-]
 
 
 class SimulationInterface:
@@ -127,15 +121,15 @@ class SimulationInterface:
             import random
 
             dx = random.choice([-1, 0, 1])
-            dy = random.choice([-1, 0, 1])
-            if dx == 0 and dy == 0:
+            dz = random.choice([-1, 0, 1])
+            if dx == 0 and dz == 0:
                 dx = 1
             return SimAction(
                 tick=tick,
                 person_id=person_id,
                 action_type=SimActionType.MOVE,
-                x=dx,
-                y=dy,
+                dx=dx,
+                dz=dz,
             )
 
         # Build full context
@@ -148,12 +142,25 @@ class SimulationInterface:
         # Format perception for the prompt
         perception_str = self._format_perception(perception)
 
+        # Build context-aware action list
+        action_context = {
+            "nearby_agents": perception.get("relative_people", []),
+            "nearby_resources": perception.get("relative_foods", []),
+            "inventory": perception.get("inventory", []),
+            "threats": perception.get("threats", []),
+            "has_food": any(
+                "food" in str(i).lower() or "bread" in str(i).lower()
+                for i in perception.get("inventory", [])
+            ),
+        }
+        available_actions = get_available_actions(action_context)
+
         # Call LLM (wrap async in sync)
         decision = asyncio.run(
             self._llm_client.generate_decision(
                 context=context,
                 perception=perception_str,
-                available_actions=AVAILABLE_ACTIONS,
+                available_actions=available_actions,
             )
         )
 
@@ -169,39 +176,80 @@ class SimulationInterface:
 
         person_id = perception["id"]
 
-        # Get nearby people and buildings from perception
+        # Get nearby entities from perception
         nearby_people = perception.get("relative_people", [])
-        nearby_buildings = perception.get("relative_buildings", [])
+        nearby_foods = perception.get("relative_foods", [])
 
         # Weight actions based on context
         actions = ["move"] * 5  # Base movement weight
         if nearby_people:
-            # More likely to communicate if people nearby
             actions += ["communicate"] * 3
-        actions += ["build"] * 2  # Occasional building
+            actions += ["give"] * 1
+        if nearby_foods:
+            actions += ["gather"] * 3
+        actions += ["build"] * 2
 
         chosen = random.choice(actions)
 
         if chosen == "communicate" and nearby_people:
-            # Communicate with a random nearby person
             target = random.choice(nearby_people)
-            dx, dy = target["relative_pos"]
+            target_id = target["id"]
+            messages = [
+                "Hello there!",
+                "Nice day, isn't it?",
+                "Want to trade?",
+                "Stay safe out there.",
+            ]
+            message = random.choice(messages)
             self._last_decisions[person_id] = {
-                "action": f"communicate({dx}, {dy})",
-                "reasoning": f"Mock: Communicating with agent {target['id']}",
-                "speech": "Hello there!",
+                "action": f"communicate({target_id}, \"{message}\")",
+                "reasoning": f"Mock: Talking to agent {target_id}",
+                "speech": message,
             }
             return SimAction(
                 tick=tick,
                 person_id=person_id,
                 action_type=SimActionType.COMMUNICATE,
-                x=dx,
-                y=dy,
+                target_id=target_id,
+                content=message,
+            )
+
+        elif chosen == "gather" and nearby_foods:
+            food = random.choice(nearby_foods)
+            dx, dz = food["relative_pos"]
+            self._last_decisions[person_id] = {
+                "action": f"gather({dx}, {dz})",
+                "reasoning": "Mock: Gathering food",
+                "speech": None,
+            }
+            return SimAction(
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.GATHER,
+                dx=dx,
+                dz=dz,
+            )
+
+        elif chosen == "give" and nearby_people:
+            target = random.choice(nearby_people)
+            target_id = target["id"]
+            items = ["wood", "stone", "food"]
+            item = random.choice(items)
+            self._last_decisions[person_id] = {
+                "action": f"give({target_id}, {item})",
+                "reasoning": f"Mock: Giving {item} to agent {target_id}",
+                "speech": None,
+            }
+            return SimAction(
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.GIVE,
+                target_id=target_id,
+                content=item,
             )
 
         elif chosen == "build":
-            # Build something
-            block_types = ["shelter", "wall", "marker", "storage"]
+            block_types = ["shelter", "wall", "marker", "chest"]
             block = random.choice(block_types)
             self._last_decisions[person_id] = {
                 "action": f"build({block})",
@@ -212,17 +260,17 @@ class SimulationInterface:
                 tick=tick,
                 person_id=person_id,
                 action_type=SimActionType.BUILD,
-                target=block,
+                content=block,
             )
 
         else:
             # Move in a random direction
             dx = random.choice([-1, 0, 1])
-            dy = random.choice([-1, 0, 1])
-            if dx == 0 and dy == 0:
+            dz = random.choice([-1, 0, 1])
+            if dx == 0 and dz == 0:
                 dx = 1
             self._last_decisions[person_id] = {
-                "action": f"move({dx}, {dy})",
+                "action": f"move({dx}, {dz})",
                 "reasoning": "Mock: Exploring the world",
                 "speech": None,
             }
@@ -230,53 +278,77 @@ class SimulationInterface:
                 tick=tick,
                 person_id=person_id,
                 action_type=SimActionType.MOVE,
-                x=dx,
-                y=dy,
+                dx=dx,
+                dz=dz,
             )
 
     def _format_perception(self, perception: dict) -> str:
-        """Format perception dict into a readable string."""
+        """Format perception dict into a readable string for Minecraft."""
         lines = []
 
         # Basic info
         if "culture" in perception:
-            lines.append(f"Your culture: {perception['culture']}")
+            lines.append(f"Your tribe/culture: {perception['culture']}")
 
-        # Nearby people (from simulation.py format)
+        # Nearby people
         if "relative_people" in perception and perception["relative_people"]:
             lines.append("\n**Nearby People:**")
             for person in perception["relative_people"]:
-                dx, dy = person["relative_pos"]
+                dx, dz = person["relative_pos"]
                 same_culture = (
-                    "same culture" if person["my_culture"] else "different culture"
+                    "same tribe" if person["my_culture"] else "different tribe"
                 )
-                lines.append(f"- Agent {person['id']} at ({dx}, {dy}) - {same_culture}")
-                lines.append(f"  To communicate: communicate({dx}, {dy})")
+                direction = self._coords_to_direction(dx, dz)
+                lines.append(
+                    f"- Agent {person['id']} at ({dx}, {dz}) [{direction}] - {same_culture}"
+                )
+                lines.append(f"  To talk: communicate({person['id']}, \"your message\")")
+
+        # Nearby resources/food
+        if "relative_foods" in perception and perception["relative_foods"]:
+            lines.append("\n**Nearby Resources:**")
+            for food in perception["relative_foods"]:
+                dx, dz = food["relative_pos"]
+                direction = self._coords_to_direction(dx, dz)
+                lines.append(f"- Food at ({dx}, {dz}) [{direction}]")
+                lines.append(f"  To gather: gather({dx}, {dz})")
 
         # Nearby buildings
         if "relative_buildings" in perception and perception["relative_buildings"]:
             lines.append("\n**Nearby Buildings:**")
             for building in perception["relative_buildings"]:
-                dx, dy = building["relative_pos"]
-                same_culture = "yours" if building["my_culture"] else "other culture"
+                dx, dz = building["relative_pos"]
+                same_culture = "yours" if building["my_culture"] else "other tribe"
+                direction = self._coords_to_direction(dx, dz)
                 lines.append(
-                    f"- Building {building['id']} at ({dx}, {dy}) - {same_culture}"
+                    f"- Building {building['id']} at ({dx}, {dz}) [{direction}] - {same_culture}"
                 )
 
-        # Legacy format support
-        if "x" in perception and "y" in perception:
-            lines.append(f"Position: ({perception['x']}, {perception['y']})")
-        if "nearby" in perception:
-            lines.append(f"Nearby entities: {perception['nearby']}")
+        # Status
         if "health" in perception:
-            lines.append(f"Health: {perception['health']}%")
+            lines.append(f"\nHealth: {perception['health']}%")
         if "hunger" in perception:
-            lines.append(f"Hunger: {perception['hunger']}%")
+            hunger = perception["hunger"]
+            status = "full" if hunger > 80 else "hungry" if hunger < 30 else "okay"
+            lines.append(f"Hunger: {hunger}% ({status})")
+
+        # Inventory
+        if "inventory" in perception and perception["inventory"]:
+            lines.append(f"\nInventory: {', '.join(str(i) for i in perception['inventory'])}")
 
         if not lines:
-            return "You are alone. Consider building shelter or exploring."
+            return "You are alone in an empty area. Consider exploring or building."
 
         return "\n".join(lines)
+
+    def _coords_to_direction(self, dx: int, dz: int) -> str:
+        """Convert relative coordinates to cardinal direction."""
+        if dx == 0 and dz == 0:
+            return "here"
+        if abs(dx) > abs(dz):
+            return "east" if dx > 0 else "west"
+        else:
+            return "south" if dz > 0 else "north"
 
     def get_last_decision(self, person_id: int) -> Optional[dict]:
         """Get the full LLM decision for a person from the last tick."""
@@ -288,49 +360,100 @@ class SimulationInterface:
         """Parse LLM decision dict into a SimAction."""
         action_str = decision.get("action", "idle").lower()
 
-        # Parse move(dx, dy)
+        # Parse move(dx, dz)
         move_match = re.match(r"move\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", action_str)
         if move_match:
             return SimAction(
                 tick=tick,
                 person_id=person_id,
                 action_type=SimActionType.MOVE,
-                x=int(move_match.group(1)),
-                y=int(move_match.group(2)),
+                dx=int(move_match.group(1)),
+                dz=int(move_match.group(2)),
             )
 
-        # Parse communicate(dx, dy)
+        # Parse communicate(target_id, "message")
         comm_match = re.match(
-            r"communicate\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", action_str
+            r"communicate\s*\(\s*(\d+)\s*,\s*[\"']([^\"']*)[\"']\s*\)", action_str
         )
         if comm_match:
             return SimAction(
                 tick=tick,
                 person_id=person_id,
                 action_type=SimActionType.COMMUNICATE,
-                x=int(comm_match.group(1)),
-                y=int(comm_match.group(2)),
+                target_id=int(comm_match.group(1)),
+                content=comm_match.group(2),
             )
 
-        # Parse build(block_type)
+        # Parse gather(dx, dz)
+        gather_match = re.match(r"gather\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", action_str)
+        if gather_match:
+            return SimAction(
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.GATHER,
+                dx=int(gather_match.group(1)),
+                dz=int(gather_match.group(2)),
+            )
+
+        # Parse give(target_id, item)
+        give_match = re.match(r"give\s*\(\s*(\d+)\s*,\s*([^)]+)\s*\)", action_str)
+        if give_match:
+            return SimAction(
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.GIVE,
+                target_id=int(give_match.group(1)),
+                content=give_match.group(2).strip(),
+            )
+
+        # Parse attack(dx, dz)
+        attack_match = re.match(r"attack\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", action_str)
+        if attack_match:
+            return SimAction(
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.ATTACK,
+                dx=int(attack_match.group(1)),
+                dz=int(attack_match.group(2)),
+            )
+
+        # Parse build(type)
         build_match = re.match(r"build\s*\(\s*([^)]+)\s*\)", action_str)
         if build_match:
             return SimAction(
                 tick=tick,
                 person_id=person_id,
                 action_type=SimActionType.BUILD,
-                target=build_match.group(1).strip(),
+                content=build_match.group(1).strip(),
             )
 
-        # Default to random movement (no idle)
+        # Parse eat(item)
+        eat_match = re.match(r"eat\s*\(\s*([^)]+)\s*\)", action_str)
+        if eat_match:
+            return SimAction(
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.EAT,
+                content=eat_match.group(1).strip(),
+            )
+
+        # Parse idle
+        if "idle" in action_str:
+            return SimAction(
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.IDLE,
+            )
+
+        # Default to random movement for unparseable actions
         import random
 
         dx = random.choice([-1, 0, 1])
-        dy = random.choice([-1, 0, 1])
-        if dx == 0 and dy == 0:
+        dz = random.choice([-1, 0, 1])
+        if dx == 0 and dz == 0:
             dx = 1
         return SimAction(
-            tick=tick, person_id=person_id, action_type=SimActionType.MOVE, x=dx, y=dy
+            tick=tick, person_id=person_id, action_type=SimActionType.MOVE, dx=dx, dz=dz
         )
 
     def end_day(self, culture_id: str = "alpha") -> dict:

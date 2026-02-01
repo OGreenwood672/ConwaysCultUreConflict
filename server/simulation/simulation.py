@@ -133,6 +133,7 @@ def get_action_json(people, buildings, foods):
 
 
 def update_world(updates, people, buildings, foods, csv_writer):
+    """Apply actions to the world state."""
     people_by_id = {p.id: p for p in people}
     pos_to_person = {(p.pos.x, p.pos.y): p for p in people}
 
@@ -142,11 +143,17 @@ def update_world(updates, people, buildings, foods, csv_writer):
             continue
 
         other_agent_id = ""
+        extra_info = ""
 
         if action.action_type == SimActionType.MOVE:
-            person.pos.x += action.x
-            person.pos.y += action.y
+            # Move in direction (dx, dz)
+            dx = action.dx or 0
+            dz = action.dz or 0
+            person.pos.x += dx
+            person.pos.y += dz  # y in our 2D sim = z in Minecraft
+
         elif action.action_type == SimActionType.BUILD:
+            # Build at current position
             buildings.append(
                 Building(
                     id=len(buildings),
@@ -154,15 +161,19 @@ def update_world(updates, people, buildings, foods, csv_writer):
                     pos=Pos(person.pos.x, person.pos.y),
                 )
             )
+            extra_info = action.content or "structure"
+
         elif action.action_type == SimActionType.COMMUNICATE:
-            target = pos_to_person.get(
-                (person.pos.x + action.x, person.pos.y + action.y)
-            )
-            if target:
-                other_agent_id = target.id
+            # Talk to target agent
+            if action.target_id is not None:
+                other_agent_id = action.target_id
+                extra_info = action.content or ""
 
         elif action.action_type == SimActionType.GATHER:
-            food_pos = (person.pos.x + action.x, person.pos.y + action.y)
+            # Gather resource at position
+            dx = action.dx or 0
+            dz = action.dz or 0
+            food_pos = (person.pos.x + dx, person.pos.y + dz)
             food_to_remove = None
             for food in foods:
                 if (food.pos.x, food.pos.y) == food_pos:
@@ -170,7 +181,31 @@ def update_world(updates, people, buildings, foods, csv_writer):
                     break
             if food_to_remove:
                 foods.remove(food_to_remove)
-                person.hunger = min(100, person.hunger + 15)
+                person.hunger = min(100, person.hunger + 20)
+
+        elif action.action_type == SimActionType.GIVE:
+            # Give item to target agent
+            if action.target_id is not None:
+                other_agent_id = action.target_id
+                extra_info = action.content or "item"
+
+        elif action.action_type == SimActionType.ATTACK:
+            # Attack entity at position
+            dx = action.dx or 0
+            dz = action.dz or 0
+            target_pos = (person.pos.x + dx, person.pos.y + dz)
+            target = pos_to_person.get(target_pos)
+            if target:
+                other_agent_id = target.id
+
+        elif action.action_type == SimActionType.EAT:
+            # Eat food from inventory
+            person.hunger = min(100, person.hunger + 25)
+            extra_info = action.content or "food"
+
+        elif action.action_type == SimActionType.IDLE:
+            # Do nothing
+            pass
 
         csv_writer.writerow(
             [
@@ -183,6 +218,17 @@ def update_world(updates, people, buildings, foods, csv_writer):
                 person.culture,
             ]
         )
+
+
+def spawn_foods(count: int = 20, world_size: int = 20) -> list[Food]:
+    """Spawn food sources randomly across the world."""
+    import random
+    foods = []
+    for _ in range(count):
+        x = random.randint(-world_size // 2, world_size // 2)
+        y = random.randint(-world_size // 2, world_size // 2)
+        foods.append(Food(pos=Pos(x, y)))
+    return foods
 
 
 def start():
@@ -198,6 +244,7 @@ def start():
 
     people = []
     buildings = []
+    foods = spawn_foods(count=30)
 
     for culture in cultures:
         for _ in range(num_individuals):
@@ -225,7 +272,11 @@ def start():
         )
 
         for tick in range(total_ticks):
-            action_json = get_action_json(people, buildings)
+            # Respawn food periodically
+            if tick % 50 == 0 and len(foods) < 10:
+                foods.extend(spawn_foods(count=5))
+
+            action_json = get_action_json(people, buildings, foods)
             results = simulation_interface.process_tick(tick, action_json)
             # Handle both dict and SimAction returns (depends on import path)
             updates = [
@@ -248,12 +299,12 @@ def start():
                         person.culture,
                     ])
 
-            update_world(updates, people, buildings, csv_writer)
-            print(f"Tick {tick}: {len(updates)} actions")
+            update_world(updates, people, buildings, foods, csv_writer)
+            print(f"Tick {tick}: {len(updates)} actions, {len(foods)} foods remaining")
 
             # Write checkpoint every N ticks
             if (tick + 1) % checkpoint_interval == 0:
-                write_checkpoint(tick + 1, people, buildings, updates_buffer)
+                write_checkpoint(tick + 1, people, buildings, foods, updates_buffer)
                 updates_buffer = []  # Clear buffer after checkpoint
 
     print(f"Simulation complete: {total_ticks} ticks")

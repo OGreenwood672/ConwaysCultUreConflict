@@ -60,10 +60,23 @@ class SoulManager:
 
     def _extract_name(self, content: str) -> str:
         """Extract the agent name from the title."""
-        match = re.search(r"#\s*Agent_\d+\s*-\s*\"([^\"]+)\"", content)
+        # Try format: # agent_id - "Name"
+        match = re.search(r"#\s*\w+\s*-\s*\"([^\"]+)\"", content)
         if match:
             return match.group(1)
         return "Unknown"
+
+    def _parse_culture_id(self, content: str) -> str:
+        """Extract culture_id from Metadata section."""
+        # Look for culture_id in Metadata section
+        metadata_pattern = r"##\s*Metadata.*?\n(.*?)(?=\n##|\Z)"
+        metadata_match = re.search(metadata_pattern, content, re.DOTALL | re.IGNORECASE)
+        if metadata_match:
+            metadata_content = metadata_match.group(1)
+            culture_match = re.search(r"culture_id:\s*(\w+)", metadata_content)
+            if culture_match:
+                return culture_match.group(1)
+        return "alpha"  # Default culture
 
     def load_soul(self, agent_id: str, force_reload: bool = False) -> Optional[AgentSoul]:
         """Load an agent soul from disk."""
@@ -93,6 +106,7 @@ class SoulManager:
             communication_style=self._parse_markdown_text(content, "Communication Style"),
             conflict_style=self._parse_markdown_text(content, "Conflict Style"),
             decision_tendencies=self._parse_markdown_section(content, "Decision Tendencies"),
+            culture_id=self._parse_culture_id(content),
         )
 
         # Load status if available

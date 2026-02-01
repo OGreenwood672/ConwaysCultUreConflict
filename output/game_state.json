@@ -1,0 +1,563 @@
+{
+  "timestamp": "2026-02-01T08:09:47.962Z",
+  "agents": {
+    "forge_001": {
+      "culture": "forge",
+      "position": {
+        "x": -20,
+        "y": -60,
+        "z": 39
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "GATHER",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "structuresBuilt": 1
+    },
+    "forge_002": {
+      "culture": "forge",
+      "position": {
+        "x": 118,
+        "y": -60,
+        "z": -72
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "GATHER",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "structuresBuilt": 1
+    },
+    "forge_003": {
+      "culture": "forge",
+      "position": {
+        "x": 53,
+        "y": -60,
+        "z": 37
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "PEACEFUL",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "forge_006",
+          "distance": 2
+        },
+        {
+          "id": "grove_001",
+          "distance": 11
+        },
+        {
+          "id": "crimson_006",
+          "distance": 15
+        }
+      ],
+      "structuresBuilt": 2
+    },
+    "forge_004": {
+      "culture": "forge",
+      "position": {
+        "x": 22,
+        "y": -60,
+        "z": 50
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "GATHER",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "structuresBuilt": 1
+    },
+    "forge_005": {
+      "culture": "forge",
+      "position": {
+        "x": 130,
+        "y": -60,
+        "z": 138
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "AGGRESSIVE",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "structuresBuilt": 2
+    },
+    "forge_006": {
+      "culture": "forge",
+      "position": {
+        "x": 54,
+        "y": -60,
+        "z": 39
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "PEACEFUL",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "forge_003",
+          "distance": 2
+        },
+        {
+          "id": "grove_001",
+          "distance": 12
+        },
+        {
+          "id": "crimson_006",
+          "distance": 16
+        }
+      ],
+      "structuresBuilt": 3
+    },
+    "grove_001": {
+      "culture": "grove",
+      "position": {
+        "x": 61,
+        "y": -60,
+        "z": 29
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "forge_003",
+          "distance": 11
+        },
+        {
+          "id": "forge_006",
+          "distance": 12
+        },
+        {
+          "id": "crimson_006",
+          "distance": 20
+        }
+      ],
+      "structuresBuilt": 4
+    },
+    "crimson_004": {
+      "culture": "crimson",
+      "position": {
+        "x": -58,
+        "y": -60,
+        "z": -4
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "PEACEFUL",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "grove_002",
+          "distance": 15
+        }
+      ],
+      "structuresBuilt": 2
+    },
+    "crimson_005": {
+      "culture": "crimson",
+      "position": {
+        "x": -5,
+        "y": -60,
+        "z": -5
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "EXPLORE",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "structuresBuilt": 0
+    },
+    "crimson_006": {
+      "culture": "crimson",
+      "position": {
+        "x": 41,
+        "y": -60,
+        "z": 29
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "GATHER",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "forge_003",
+          "distance": 15
+        },
+        {
+          "id": "forge_006",
+          "distance": 16
+        },
+        {
+          "id": "grove_001",
+          "distance": 20
+        }
+      ],
+      "structuresBuilt": 0
+    },
+    "crimson_007": {
+      "culture": "crimson",
+      "position": {
+        "x": -1,
+        "y": -60,
+        "z": -85
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "agent_002",
+          "distance": 3
+        }
+      ],
+      "structuresBuilt": 4
+    },
+    "grove_002": {
+      "culture": "grove",
+      "position": {
+        "x": -59,
+        "y": -60,
+        "z": 11
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "crimson_004",
+          "distance": 15
+        }
+      ],
+      "structuresBuilt": 3
+    },
+    "grove_003": {
+      "culture": "grove",
+      "position": {
+        "x": -41,
+        "y": -60,
+        "z": -67
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "structuresBuilt": 2
+    },
+    "grove_005": {
+      "culture": "grove",
+      "position": {
+        "x": 32,
+        "y": -60,
+        "z": -25
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "crimson_001",
+          "distance": 17
+        },
+        {
+          "id": "agent_004",
+          "distance": 17
+        }
+      ],
+      "structuresBuilt": 3
+    },
+    "grove_004": {
+      "culture": "grove",
+      "position": {
+        "x": -33,
+        "y": -61,
+        "z": 10
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "crimson_002",
+          "distance": 19
+        }
+      ],
+      "structuresBuilt": 4
+    },
+    "grove_006": {
+      "culture": "grove",
+      "position": {
+        "x": -14,
+        "y": -60,
+        "z": 72
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "structuresBuilt": 2
+    },
+    "crimson_001": {
+      "culture": "crimson",
+      "position": {
+        "x": 28,
+        "y": -60,
+        "z": -9
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": true,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "grove_005",
+          "distance": 17
+        },
+        {
+          "id": "agent_004",
+          "distance": 10
+        }
+      ],
+      "structuresBuilt": 2
+    },
+    "crimson_003": {
+      "culture": "crimson",
+      "position": {
+        "x": -2,
+        "y": -60,
+        "z": 30
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "structuresBuilt": 2
+    },
+    "agent_006": {
+      "culture": "alpha",
+      "position": {
+        "x": -42,
+        "y": -60,
+        "z": -33
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": true,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "structuresBuilt": 2
+    },
+    "crimson_002": {
+      "culture": "crimson",
+      "position": {
+        "x": -25,
+        "y": -60,
+        "z": -6
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "grove_004",
+          "distance": 19
+        }
+      ],
+      "structuresBuilt": 1
+    },
+    "agent_005": {
+      "culture": "alpha",
+      "position": {
+        "x": 66,
+        "y": -60,
+        "z": 3
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "structuresBuilt": 0
+    },
+    "agent_004": {
+      "culture": "alpha",
+      "position": {
+        "x": 19,
+        "y": -60,
+        "z": -14
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "grove_005",
+          "distance": 17
+        },
+        {
+          "id": "crimson_001",
+          "distance": 10
+        }
+      ],
+      "structuresBuilt": 0
+    },
+    "agent_002": {
+      "culture": "alpha",
+      "position": {
+        "x": -2,
+        "y": -60,
+        "z": -81
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "crimson_007",
+          "distance": 3
+        }
+      ],
+      "structuresBuilt": 0
+    }
+  },
+  "structures": {
+    "alpha": 14,
+    "forge": 11,
+    "grove": 26,
+    "crimson": 15
+  },
+  "nearbyPairs": [
+    {
+      "key": "forge_003-forge_006",
+      "agents": [
+        "forge_003",
+        "forge_006"
+      ],
+      "distance": 2
+    },
+    {
+      "key": "forge_003-grove_001",
+      "agents": [
+        "forge_003",
+        "grove_001"
+      ],
+      "distance": 11
+    },
+    {
+      "key": "crimson_006-forge_003",
+      "agents": [
+        "forge_003",
+        "crimson_006"
+      ],
+      "distance": 15
+    },
+    {
+      "key": "forge_006-grove_001",
+      "agents": [
+        "forge_006",
+        "grove_001"
+      ],
+      "distance": 12
+    },
+    {
+      "key": "crimson_006-forge_006",
+      "agents": [
+        "forge_006",
+        "crimson_006"
+      ],
+      "distance": 16
+    },
+    {
+      "key": "crimson_006-grove_001",
+      "agents": [
+        "grove_001",
+        "crimson_006"
+      ],
+      "distance": 20
+    },
+    {
+      "key": "crimson_004-grove_002",
+      "agents": [
+        "crimson_004",
+        "grove_002"
+      ],
+      "distance": 15
+    },
+    {
+      "key": "agent_002-crimson_007",
+      "agents": [
+        "crimson_007",
+        "agent_002"
+      ],
+      "distance": 3
+    },
+    {
+      "key": "crimson_001-grove_005",
+      "agents": [
+        "grove_005",
+        "crimson_001"
+      ],
+      "distance": 17
+    },
+    {
+      "key": "agent_004-grove_005",
+      "agents": [
+        "grove_005",
+        "agent_004"
+      ],
+      "distance": 17
+    },
+    {
+      "key": "crimson_002-grove_004",
+      "agents": [
+        "grove_004",
+        "crimson_002"
+      ],
+      "distance": 19
+    },
+    {
+      "key": "agent_004-crimson_001",
+      "agents": [
+        "crimson_001",
+        "agent_004"
+      ],
+      "distance": 10
+    }
+  ]
+}

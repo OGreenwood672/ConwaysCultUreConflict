@@ -1,0 +1,88 @@
+{
+  "cultures": {
+    "alpha": {
+      "name": "The Builders",
+      "color": "blue",
+      "values": ["construction", "permanence", "order", "craftsmanship"],
+      "spawn_area": {"x": 0, "y": 64, "z": 0, "radius": 20}
+    },
+    "beta": {
+      "name": "The Wanderers",
+      "color": "green",
+      "values": ["exploration", "freedom", "discovery", "adaptability"],
+      "spawn_area": {"x": 200, "y": 64, "z": 0, "radius": 20}
+    },
+    "gamma": {
+      "name": "The Collective",
+      "color": "red",
+      "values": ["community", "sharing", "ritual", "tradition"],
+      "spawn_area": {"x": 100, "y": 64, "z": 200, "radius": 20}
+    }
+  },
+  "types": {
+    "builder": {
+      "traits": ["patient", "visionary", "territorial"],
+      "skills": ["construction", "planning", "resource_gathering"],
+      "goals": ["build structures", "fortify territory", "create landmarks"]
+    },
+    "explorer": {
+      "traits": ["curious", "restless", "observant"],
+      "skills": ["navigation", "mapping", "survival"],
+      "goals": ["discover new areas", "find resources", "report findings"]
+    },
+    "trader": {
+      "traits": ["pragmatic", "social", "calculating"],
+      "skills": ["negotiation", "inventory_management", "networking"],
+      "goals": ["establish trade routes", "accumulate resources", "build relationships"]
+    },
+    "guardian": {
+      "traits": ["protective", "vigilant", "loyal"],
+      "skills": ["combat", "patrolling", "defense"],
+      "goals": ["protect territory", "defend allies", "eliminate threats"]
+    },
+    "farmer": {
+      "traits": ["nurturing", "patient", "practical"],
+      "skills": ["agriculture", "animal_husbandry", "food_production"],
+      "goals": ["grow food", "sustain community", "manage resources"]
+    },
+    "scholar": {
+      "traits": ["analytical", "curious", "methodical"],
+      "skills": ["observation", "documentation", "experimentation"],
+      "goals": ["understand the world", "preserve knowledge", "advise leaders"]
+    },
+    "diplomat": {
+      "traits": ["charismatic", "empathetic", "strategic"],
+      "skills": ["communication", "conflict_resolution", "alliance_building"],
+      "goals": ["forge alliances", "resolve conflicts", "unite cultures"]
+    }
+  },
+  "agents": [
+    {"id": "agent_001", "culture": "alpha", "type": "builder", "name": "Mason"},
+    {"id": "agent_002", "culture": "alpha", "type": "builder", "name": "Petra"},
+    {"id": "agent_003", "culture": "alpha", "type": "guardian", "name": "Shield"},
+    {"id": "agent_004", "culture": "alpha", "type": "farmer", "name": "Harvest"},
+    {"id": "agent_005", "culture": "alpha", "type": "trader", "name": "Barter"},
+    {"id": "agent_006", "culture": "alpha", "type": "scholar", "name": "Codex"},
+    {"id": "agent_007", "culture": "alpha", "type": "diplomat", "name": "Bridge"},
+    {"id": "agent_008", "culture": "alpha", "type": "explorer", "name": "Scout"},
+
+    {"id": "agent_009", "culture": "beta", "type": "explorer", "name": "Drift"},
+    {"id": "agent_010", "culture": "beta", "type": "explorer", "name": "Horizon"},
+    {"id": "agent_011", "culture": "beta", "type": "explorer", "name": "Nomad"},
+    {"id": "agent_012", "culture": "beta", "type": "trader", "name": "Caravan"},
+    {"id": "agent_013", "culture": "beta", "type": "guardian", "name": "Ranger"},
+    {"id": "agent_014", "culture": "beta", "type": "scholar", "name": "Sage"},
+    {"id": "agent_015", "culture": "beta", "type": "diplomat", "name": "Voice"},
+    {"id": "agent_016", "culture": "beta", "type": "builder", "name": "Camp"},
+    {"id": "agent_017", "culture": "beta", "type": "farmer", "name": "Forager"},
+
+    {"id": "agent_018", "culture": "gamma", "type": "farmer", "name": "Grove"},
+    {"id": "agent_019", "culture": "gamma", "type": "farmer", "name": "Tender"},
+    {"id": "agent_020", "culture": "gamma", "type": "guardian", "name": "Warden"},
+    {"id": "agent_021", "culture": "gamma", "type": "guardian", "name": "Keeper"},
+    {"id": "agent_022", "culture": "gamma", "type": "scholar", "name": "Elder"},
+    {"id": "agent_023", "culture": "gamma", "type": "diplomat", "name": "Speaker"},
+    {"id": "agent_024", "culture": "gamma", "type": "builder", "name": "Shaper"},
+    {"id": "agent_025", "culture": "gamma", "type": "trader", "name": "Giver"}
+  ]
+}
