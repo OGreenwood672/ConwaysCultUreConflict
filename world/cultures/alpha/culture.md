@@ -2,64 +2,39 @@
 
 This document represents the current cultural state of this world. It is updated at the end of each game day based on emergent agent behavior.
 
-## Current State
-
-- **Day**: 1
-- **Population**: 3 agents
-- **Factions**: None established yet
-- **Active Conflicts**: None
-
-## Environmental Conditions
-
-- **Season**: Early days
-- **Resource Availability**: Abundant (untouched world)
-- **Threat Level**: Moderate (dangers emerge at night)
 
 ## Established Norms
 
+It is vital for cultures to develop unique standard norms
+This gives a sense of identity for the community
 *None yet - culture emerges through interaction.*
-
-## Economic Patterns
-
-- **Trade**: No established trade routes or values
-- **Currency**: None established
-- **Resource Distribution**: Each agent fends for themselves
 
 ## Social Structure
 
 - **Leadership**: None
-- **Alliances**: None formed
-- **Rivalries**: None yet
-
-## Sacred Objects and Places
-
-*None yet - meaning emerges through shared experience.*
+- **Alliances with other cultures**: None formed
+- **Rivalries with other cultures**: None yet
 
 ## Shared Knowledge
 
-- Night is dangerous
-- Shelter is essential for survival
 - Food can be gathered from the environment
-- Tools improve gathering efficiency
+- Other cultures are potential rivals or allies.
 
-## Recent Events
+## Events
+
+For the history books,
+Events with other cultures are important to have
+Both good and bad interactions are important to have and record
 
 *Day 1 - The Beginning*
 - All agents spawned in proximity
 - Initial exploration phase
 - No significant interactions recorded
 
-## Tomorrow's Pressures
+## Tomorrow's Plan
 
-- First night approaches - shelter needed
-- Food reserves are nonexistent
-- Agents must decide: cooperate or compete?
-
-## Cultural Memory
-
-Events that have shaped this culture:
-
-*No significant cultural events yet.*
+- Collect food
+- Explore other regions of the map
 
 ---
 

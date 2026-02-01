@@ -15,30 +15,6 @@ Laws emerge when:
 
 ---
 
-## Active Contracts
-
-*No contracts have been signed yet.*
-
-Contracts are agreements between specific agents:
-- Trade agreements
-- Non-aggression pacts
-- Resource sharing arrangements
-- Territory boundaries
-
-### Contract Template
-When contracts form, they will be recorded as:
-
-```
-## Contract: [Name]
-- **Parties**: [Agent IDs]
-- **Established**: Day [X]
-- **Terms**: [Description]
-- **Enforcement**: [How violations are handled]
-- **Status**: Active / Violated / Expired
-```
-
----
-
 ## Informal Norms
 
 Social expectations that aren't formally codified but are generally followed:
@@ -49,22 +25,6 @@ Norms form through:
 - Repeated behaviors that others copy
 - Social pressure and reputation effects
 - Practical necessity
-
----
-
-## Violations Log
-
-Record of broken laws and contracts:
-
-*No violations recorded.*
-
----
-
-## Proposed Rules
-
-Rules under discussion but not yet adopted:
-
-*None proposed.*
 
 ---
 

@@ -20,7 +20,11 @@ class Person:
     id: int
     culture: int
     pos: Pos
+    hunger: int = 100
 
+@dataclass
+class Food:
+    pos: Pos
 
 @dataclass
 class Building:
@@ -54,7 +58,7 @@ def give_green_what_he_really_really_wants(people):
         json.dump(json_content, file)
 
 
-def write_checkpoint(tick, people, buildings, updates_buffer):
+def write_checkpoint(tick, people, buildings, foods, updates_buffer):
     """Write intermediate results every N ticks."""
     import os
 
@@ -72,6 +76,7 @@ def write_checkpoint(tick, people, buildings, updates_buffer):
             {"id": b.id, "culture": b.culture, "x": b.pos.x, "y": b.pos.y}
             for b in buildings
         ],
+        "foods": [{"x": f.pos.x, "y": f.pos.y} for f in foods],
     }
     with open(f"{checkpoint_dir}/state_tick_{tick:04d}.json", "w") as f:
         json.dump(state, f, indent=2)
@@ -85,7 +90,7 @@ def write_checkpoint(tick, people, buildings, updates_buffer):
     print(f"Checkpoint written at tick {tick}")
 
 
-def get_action_json(people, buildings):
+def get_action_json(people, buildings, foods):
     json = []
 
     for person in people:
@@ -112,13 +117,22 @@ def get_action_json(people, buildings):
                     }
                     for building in buildings
                 ],
+                "relative_foods": [
+                    {
+                        "relative_pos": relative(
+                            person.pos,
+                            food.pos,
+                        )
+                    }
+                    for food in foods
+                ]
             }
         )
 
     return json
 
 
-def update_world(updates, people, buildings, csv_writer):
+def update_world(updates, people, buildings, foods, csv_writer):
     people_by_id = {p.id: p for p in people}
     pos_to_person = {(p.pos.x, p.pos.y): p for p in people}
 
@@ -146,6 +160,17 @@ def update_world(updates, people, buildings, csv_writer):
             )
             if target:
                 other_agent_id = target.id
+
+        elif action.action_type == SimActionType.GATHER:
+            food_pos = (person.pos.x + action.x, person.pos.y + action.y)
+            food_to_remove = None
+            for food in foods:
+                if (food.pos.x, food.pos.y) == food_pos:
+                    food_to_remove = food
+                    break
+            if food_to_remove:
+                foods.remove(food_to_remove)
+                person.hunger = min(100, person.hunger + 15)
 
         csv_writer.writerow(
             [
