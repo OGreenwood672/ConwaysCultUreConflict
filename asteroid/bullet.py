@@ -28,5 +28,4 @@ class Bullet:
         self.life -= 1
 
     def draw(self, surface):
-        pygame.draw.circle(surface, WHITE, (int(self.x), int(self.y)), 3)
-
+        pygame.draw.circle(surface, WHITE, (int(self.x) + 200, int(self.y) + 200), 3)

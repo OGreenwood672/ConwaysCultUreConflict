@@ -10,7 +10,7 @@ from typing import Optional  # noqa: E402
 from actions import SimAction, SimActionType  # noqa: E402
 from agent.soul import AgentSoul  # noqa: E402
 from agent.soul_manager import SoulManager  # noqa: E402
-from agent.llm_client import LLMClient, MockLLMClient  # noqa: E402
+from agent.llm_client import LLMClient, MockLLMClient, ModelTier  # noqa: E402
 from agent.context_builder import ContextBuilder  # noqa: E402
 
 # Mapping from person_id to agent_id
@@ -21,17 +21,16 @@ PERSON_TO_AGENT = {
 }
 
 AVAILABLE_ACTIONS = [
-    "move(dx, dy) - Move relative to current position",
-    "build(block_type) - Build a structure",
-    "communicate(dx, dy) - Communicate with someone at relative position",
-    "idle - Do nothing and observe",
+    "move(dx, dy) - Move in a direction. Example: move(1, 0) moves right, move(0, -1) moves up",
+    "build(type) - Build at your position. Types: shelter, wall, marker, storage. Example: build(shelter)",
+    "communicate(dx, dy) - Talk to someone at that position. Use coordinates from 'Nearby People'. Example: communicate(2, 1)",
 ]
 
 
 class SimulationInterface:
     """Interface for metamap/game to communicate with AI."""
 
-    def __init__(self, use_mock_llm: bool = True, world_path: str = "world"):
+    def __init__(self, use_mock_llm: bool = False, world_path: str = "world"):
         self._people_state: dict[int, dict] = {}
         self.use_mock_llm = use_mock_llm
         self.world_path = world_path
@@ -124,9 +123,19 @@ class SimulationInterface:
         soul = self._get_soul_for_person(person_id)
 
         if not soul:
-            # No soul mapping, return idle
+            # No soul mapping, move randomly
+            import random
+
+            dx = random.choice([-1, 0, 1])
+            dy = random.choice([-1, 0, 1])
+            if dx == 0 and dy == 0:
+                dx = 1
             return SimAction(
-                tick=tick, person_id=person_id, action_type=SimActionType.IDLE
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.MOVE,
+                x=dx,
+                y=dy,
             )
 
         # Build full context
@@ -155,39 +164,119 @@ class SimulationInterface:
         return self._parse_llm_decision(tick, person_id, decision)
 
     def _mock_decision(self, tick: int, perception: dict) -> SimAction:
-        """Generate a mock decision for testing."""
+        """Generate a mock decision with varied behavior."""
+        import random
+
         person_id = perception["id"]
-        # Simple pattern: alternate between move and idle
-        if tick % 2 == 0:
+
+        # Get nearby people and buildings from perception
+        nearby_people = perception.get("relative_people", [])
+        nearby_buildings = perception.get("relative_buildings", [])
+
+        # Weight actions based on context
+        actions = ["move"] * 5  # Base movement weight
+        if nearby_people:
+            # More likely to communicate if people nearby
+            actions += ["communicate"] * 3
+        actions += ["build"] * 2  # Occasional building
+
+        chosen = random.choice(actions)
+
+        if chosen == "communicate" and nearby_people:
+            # Communicate with a random nearby person
+            target = random.choice(nearby_people)
+            dx, dy = target["relative_pos"]
             self._last_decisions[person_id] = {
-                "action": "move(1, 0)",
-                "reasoning": "Mock: Moving to explore",
+                "action": f"communicate({dx}, {dy})",
+                "reasoning": f"Mock: Communicating with agent {target['id']}",
+                "speech": "Hello there!",
+            }
+            return SimAction(
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.COMMUNICATE,
+                x=dx,
+                y=dy,
+            )
+
+        elif chosen == "build":
+            # Build something
+            block_types = ["shelter", "wall", "marker", "storage"]
+            block = random.choice(block_types)
+            self._last_decisions[person_id] = {
+                "action": f"build({block})",
+                "reasoning": f"Mock: Building a {block}",
                 "speech": None,
             }
             return SimAction(
-                tick=tick, person_id=person_id, action_type=SimActionType.MOVE, x=1, y=0
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.BUILD,
+                target=block,
             )
-        self._last_decisions[person_id] = {
-            "action": "idle",
-            "reasoning": "Mock: Observing surroundings",
-            "speech": None,
-        }
-        return SimAction(tick=tick, person_id=person_id, action_type=SimActionType.IDLE)
+
+        else:
+            # Move in a random direction
+            dx = random.choice([-1, 0, 1])
+            dy = random.choice([-1, 0, 1])
+            if dx == 0 and dy == 0:
+                dx = 1
+            self._last_decisions[person_id] = {
+                "action": f"move({dx}, {dy})",
+                "reasoning": "Mock: Exploring the world",
+                "speech": None,
+            }
+            return SimAction(
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.MOVE,
+                x=dx,
+                y=dy,
+            )
 
     def _format_perception(self, perception: dict) -> str:
         """Format perception dict into a readable string."""
         lines = []
+
+        # Basic info
+        if "culture" in perception:
+            lines.append(f"Your culture: {perception['culture']}")
+
+        # Nearby people (from simulation.py format)
+        if "relative_people" in perception and perception["relative_people"]:
+            lines.append("\n**Nearby People:**")
+            for person in perception["relative_people"]:
+                dx, dy = person["relative_pos"]
+                same_culture = (
+                    "same culture" if person["my_culture"] else "different culture"
+                )
+                lines.append(f"- Agent {person['id']} at ({dx}, {dy}) - {same_culture}")
+                lines.append(f"  To communicate: communicate({dx}, {dy})")
+
+        # Nearby buildings
+        if "relative_buildings" in perception and perception["relative_buildings"]:
+            lines.append("\n**Nearby Buildings:**")
+            for building in perception["relative_buildings"]:
+                dx, dy = building["relative_pos"]
+                same_culture = "yours" if building["my_culture"] else "other culture"
+                lines.append(
+                    f"- Building {building['id']} at ({dx}, {dy}) - {same_culture}"
+                )
+
+        # Legacy format support
         if "x" in perception and "y" in perception:
             lines.append(f"Position: ({perception['x']}, {perception['y']})")
-        if "culture" in perception:
-            lines.append(f"Culture: {perception['culture']}")
         if "nearby" in perception:
             lines.append(f"Nearby entities: {perception['nearby']}")
         if "health" in perception:
             lines.append(f"Health: {perception['health']}%")
         if "hunger" in perception:
             lines.append(f"Hunger: {perception['hunger']}%")
-        return "\n".join(lines) if lines else "No additional perception data."
+
+        if not lines:
+            return "You are alone. Consider building shelter or exploring."
+
+        return "\n".join(lines)
 
     def get_last_decision(self, person_id: int) -> Optional[dict]:
         """Get the full LLM decision for a person from the last tick."""
@@ -233,8 +322,16 @@ class SimulationInterface:
                 target=build_match.group(1).strip(),
             )
 
-        # Default to idle
-        return SimAction(tick=tick, person_id=person_id, action_type=SimActionType.IDLE)
+        # Default to random movement (no idle)
+        import random
+
+        dx = random.choice([-1, 0, 1])
+        dy = random.choice([-1, 0, 1])
+        if dx == 0 and dy == 0:
+            dx = 1
+        return SimAction(
+            tick=tick, person_id=person_id, action_type=SimActionType.MOVE, x=dx, y=dy
+        )
 
     def end_day(self, culture_id: str = "alpha") -> dict:
         """

@@ -4,7 +4,7 @@ import pygame
 
 CULTURE_COLORS = [
     (255, 255, 255),  # Culture 0: white
-    (0, 255, 255),    # Culture 1: cyan
+    (0, 255, 255),  # Culture 1: cyan
 ]
 
 
@@ -39,7 +39,10 @@ class Player:
         pygame.draw.polygon(
             surface,
             self.color,
-            [(tip_x, tip_y), (left_x, left_y), (right_x, right_y)],
+            [
+                (tip_x + 200, tip_y + 200),
+                (left_x + 200, left_y + 200),
+                (right_x + 200, right_y + 200),
+            ],
             2,
         )
-

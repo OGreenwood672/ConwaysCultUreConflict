@@ -155,11 +155,17 @@ class LLMClient:
 ## Available Actions
 {actions_str}
 
-Based on your personality, goals, and current situation, what do you do?
+## Decision Guidelines
+- If people are nearby, consider communicating to build relationships or gather information
+- If you need safety, build a shelter
+- Move toward allies or away from threats
+- Act according to your personality and goals
+
+What do you do? Pick ONE action from the list above.
 
 Respond in this exact JSON format:
 {{
-  "action": "<one of the available actions>",
+  "action": "<exact action with parameters, e.g. move(1, 0) or build(shelter) or communicate(2, 1)>",
   "target": "<target of action if applicable, or null>",
   "reasoning": "<brief internal thought process>",
   "speech": "<what you say out loud, or null if silent>"

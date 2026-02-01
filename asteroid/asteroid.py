@@ -10,5 +10,6 @@ class Asteroid:
         self.radius = size * 15
 
     def draw(self, surface):
-        pygame.draw.circle(surface, WHITE, (int(self.x), int(self.y)), self.radius, 2)
-
+        pygame.draw.circle(
+            surface, WHITE, (int(self.x) + 200, int(self.y) + 200), self.radius, 2
+        )
