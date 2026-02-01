@@ -125,12 +125,17 @@ class SimulationInterface:
         if not soul:
             # No soul mapping, move randomly
             import random
+
             dx = random.choice([-1, 0, 1])
             dy = random.choice([-1, 0, 1])
             if dx == 0 and dy == 0:
                 dx = 1
             return SimAction(
-                tick=tick, person_id=person_id, action_type=SimActionType.MOVE, x=dx, y=dy
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.MOVE,
+                x=dx,
+                y=dy,
             )
 
         # Build full context
@@ -161,6 +166,7 @@ class SimulationInterface:
     def _mock_decision(self, tick: int, perception: dict) -> SimAction:
         """Generate a mock decision with varied behavior."""
         import random
+
         person_id = perception["id"]
 
         # Get nearby people and buildings from perception
@@ -170,7 +176,8 @@ class SimulationInterface:
         # Weight actions based on context
         actions = ["move"] * 5  # Base movement weight
         if nearby_people:
-            actions += ["communicate"] * 3  # More likely to communicate if people nearby
+            # More likely to communicate if people nearby
+            actions += ["communicate"] * 3
         actions += ["build"] * 2  # Occasional building
 
         chosen = random.choice(actions)
@@ -185,7 +192,11 @@ class SimulationInterface:
                 "speech": "Hello there!",
             }
             return SimAction(
-                tick=tick, person_id=person_id, action_type=SimActionType.COMMUNICATE, x=dx, y=dy
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.COMMUNICATE,
+                x=dx,
+                y=dy,
             )
 
         elif chosen == "build":
@@ -198,7 +209,10 @@ class SimulationInterface:
                 "speech": None,
             }
             return SimAction(
-                tick=tick, person_id=person_id, action_type=SimActionType.BUILD, target=block
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.BUILD,
+                target=block,
             )
 
         else:
@@ -213,7 +227,11 @@ class SimulationInterface:
                 "speech": None,
             }
             return SimAction(
-                tick=tick, person_id=person_id, action_type=SimActionType.MOVE, x=dx, y=dy
+                tick=tick,
+                person_id=person_id,
+                action_type=SimActionType.MOVE,
+                x=dx,
+                y=dy,
             )
 
     def _format_perception(self, perception: dict) -> str:
@@ -229,7 +247,9 @@ class SimulationInterface:
             lines.append("\n**Nearby People:**")
             for person in perception["relative_people"]:
                 dx, dy = person["relative_pos"]
-                same_culture = "same culture" if person["my_culture"] else "different culture"
+                same_culture = (
+                    "same culture" if person["my_culture"] else "different culture"
+                )
                 lines.append(f"- Agent {person['id']} at ({dx}, {dy}) - {same_culture}")
                 lines.append(f"  To communicate: communicate({dx}, {dy})")
 
@@ -239,7 +259,9 @@ class SimulationInterface:
             for building in perception["relative_buildings"]:
                 dx, dy = building["relative_pos"]
                 same_culture = "yours" if building["my_culture"] else "other culture"
-                lines.append(f"- Building {building['id']} at ({dx}, {dy}) - {same_culture}")
+                lines.append(
+                    f"- Building {building['id']} at ({dx}, {dy}) - {same_culture}"
+                )
 
         # Legacy format support
         if "x" in perception and "y" in perception:
@@ -302,6 +324,7 @@ class SimulationInterface:
 
         # Default to random movement (no idle)
         import random
+
         dx = random.choice([-1, 0, 1])
         dy = random.choice([-1, 0, 1])
         if dx == 0 and dy == 0:

@@ -4,7 +4,7 @@ import pygame
 
 CULTURE_COLORS = [
     (255, 255, 255),  # Culture 0: white
-    (0, 255, 255),    # Culture 1: cyan
+    (0, 255, 255),  # Culture 1: cyan
 ]
 
 
@@ -14,12 +14,16 @@ class Player:
         self.y = y
         self.angle = 90  # Pointing up
         self.radius = 15
+        self.alive = True
         self.color = CULTURE_COLORS[culture % len(CULTURE_COLORS)]
 
     def update(self):
         pass
 
     def draw(self, surface):
+        if not self.alive:
+            return
+
         rad = math.radians(self.angle)
         tip_x = self.x + math.cos(rad) * 20
         tip_y = self.y - math.sin(rad) * 20
@@ -35,7 +39,10 @@ class Player:
         pygame.draw.polygon(
             surface,
             self.color,
-            [(tip_x, tip_y), (left_x, left_y), (right_x, right_y)],
+            [
+                (tip_x + 200, tip_y + 200),
+                (left_x + 200, left_y + 200),
+                (right_x + 200, right_y + 200),
+            ],
             2,
         )
-

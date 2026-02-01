@@ -55,7 +55,7 @@ def give_green_what_he_really_really_wants(people):
         )
 
     with open("frontend/public/logs/start.json", "w") as file:
-        json.dump(json_content, file)
+        json.dump({"bob": json_content}, file)
 
 
 def write_checkpoint(tick, people, buildings, foods, updates_buffer):
