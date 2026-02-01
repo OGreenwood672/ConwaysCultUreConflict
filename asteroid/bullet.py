@@ -1,23 +1,30 @@
-import pygame
 import math
-from globals import BULLET_LIFETIME, BULLET_SPEED, WHITE, wrap_position
+
+import pygame
+
+from globals import BULLET_LIFETIME, BULLET_SPEED, WHITE
 
 
 class Bullet:
-    def __init__(self, x, y, angle):
+    def __init__(self, x, y, target_x, target_y, target_id):
         self.x = x
         self.y = y
-        self.angle = angle
+        self.target_id = target_id
         self.life = BULLET_LIFETIME
-        # Calculate velocity based on angle
-        rad = math.radians(self.angle)
-        self.vx = math.cos(rad) * BULLET_SPEED
-        self.vy = -math.sin(rad) * BULLET_SPEED
+
+        dx = target_x - x
+        dy = target_y - y
+        dist = math.hypot(dx, dy)
+        if dist > 0:
+            self.vx = dx / dist * BULLET_SPEED
+            self.vy = dy / dist * BULLET_SPEED
+        else:
+            self.vx = 0
+            self.vy = 0
 
     def update(self):
         self.x += self.vx
         self.y += self.vy
-        self.x, self.y = wrap_position(self.x, self.y)
         self.life -= 1
 
     def draw(self, surface):

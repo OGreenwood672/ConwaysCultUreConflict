@@ -14,12 +14,16 @@ class Player:
         self.y = y
         self.angle = 90  # Pointing up
         self.radius = 15
+        self.alive = True
         self.color = CULTURE_COLORS[culture % len(CULTURE_COLORS)]
 
     def update(self):
         pass
 
     def draw(self, surface):
+        if not self.alive:
+            return
+
         rad = math.radians(self.angle)
         tip_x = self.x + math.cos(rad) * 20
         tip_y = self.y - math.sin(rad) * 20

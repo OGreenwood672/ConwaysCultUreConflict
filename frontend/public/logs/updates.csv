@@ -19,3 +19,5 @@ tick,agent_id,action,x,y,other_agent_id,culture
 1,7,idle,6,5,,1
 1,8,idle,6,5,,1
 1,9,idle,6,5,,1
+1,9,idle,6,5,,1
+2,9,attack,,,0,1
