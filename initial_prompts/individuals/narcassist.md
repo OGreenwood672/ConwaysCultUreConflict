@@ -1,2 +1,0 @@
-
-U r narcasccist
