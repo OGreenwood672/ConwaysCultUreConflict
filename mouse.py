@@ -1,40 +1,49 @@
+import csv
+from collections import defaultdict
 from time import sleep
 import pyautogui
 
-pyautogui.FAILSAFE = False
+pyautogui.FAILSAFE = True
 
 
-pos = [
-    (87, 100),
-    (89, 100),
-    (100, 130),
-    (102, 140),
-    (150, 190),
-]
+CSV_PATH = "frontend/public/logs/updates.csv"
 
 
-pos2 = [
-    (87, 200),
-    (89, 200),
-    (100, 230),
-    (102, 240),
-    (150, 290),
-]
+def load_positions(path):
+    """Parse updates.csv into per-tick position lists by culture.
+
+    Returns dict: tick -> {culture_id: [(x, y), ...]}
+    """
+    ticks = defaultdict(lambda: defaultdict(list))
+    with open(path, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            tick = int(row["tick"])
+            culture = int(row["culture"])
+            x = int(row["x"])
+            y = int(row["y"])
+            ticks[tick][culture].append((x, y))
+    return ticks
 
 
-pyautogui.click(60, 200, button="left")
+ticks = load_positions(CSV_PATH)
 
-pyautogui.click(210, 950)
 
-for x, y in pos:
-    pyautogui.click(x, y, button="left")
+for tick in sorted(ticks.keys()):
+    pos = ticks[tick].get(0, [])  # culture 0
+    pos2 = ticks[tick].get(1, [])  # culture 1
 
-pyautogui.click(400, 950)
+    pyautogui.click(60, 200, button="left")
 
-for x, y in pos2:
-    pyautogui.click(x, y, button="left")
+    pyautogui.click(210, 950)
+    for x, y in pos:
+        pyautogui.click(650 + x * 20, 500 + y * 20, button="left")
 
-sleep(2)
+    pyautogui.click(400, 950)
+    for x, y in pos2:
+        pyautogui.click(650 + x * 20, 500 + y * 20, button="left")
 
-pyautogui.hotkey("ctrl", "a")  # Select all
-pyautogui.press("delete")
+    sleep(2)
+
+    pyautogui.hotkey("ctrl", "a")  # Select all
+    pyautogui.press("delete")

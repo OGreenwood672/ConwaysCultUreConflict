@@ -64,3 +64,10 @@ Events that have shaped this culture:
 ---
 
 *This document is automatically updated based on agent actions and interactions. Cultural norms, sacred objects, and social structures emerge from repeated behaviors and shared experiences.*
+
+
+
+
+
+resources: 0
+
