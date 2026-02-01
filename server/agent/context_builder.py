@@ -90,9 +90,6 @@ class ContextBuilder:
         if "time" in perception:
             lines.append(f"**Time**: Day {perception['time'].get('day', 1)}, {perception['time'].get('period', 'unknown')}")
 
-        # Health/hunger
-        if "health" in perception:
-            lines.append(f"**Health**: {perception['health']}%")
         if "hunger" in perception:
             lines.append(f"**Hunger**: {perception['hunger']}%")
 
@@ -161,10 +158,10 @@ class ContextBuilder:
                 sections.append("\n---\n")
 
         # 4. Soul
-        sections.append("# Who You Are")
-        sections.append("")
-        sections.append(soul.to_context_string())
-        sections.append("\n---\n")
+        # sections.append("# Who You Are")
+        # sections.append("")
+        # sections.append(soul.to_context_string())
+        # sections.append("\n---\n")
 
         # 5. Memories
         memory_context = self.build_memory_context(memories)

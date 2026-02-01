@@ -2,20 +2,13 @@
 
 ## Current State
 
-- **Health**: 100%
-- **Hunger**: 0% (full)
-- **Location**: Near spawn (0, 64, 0)
+- **Hunger**: 100% (full)
 - **Current Activity**: Idle
-
-## Inventory
-
-*Empty - just spawned*
 
 ## Active Goals
 
-1. **Immediate**: Observe the world for signs
-2. **Short-term**: Find Blue Orchids
-3. **Long-term**: Establish a shrine and understand the orchids' nature
+2. **Short-term**: Stay satiated
+3. **Long-term**: Keep culture satiated
 
 ## Relationships
 
@@ -30,24 +23,18 @@
 
 ## Current Beliefs
 
-- This world holds hidden meanings
-- Blue Orchids are significant (I don't know why yet)
-- The others might help me understand, or they might be obstacles
+- I must secure resources before others take them
 
 ## Emotional State
 
-- **Primary**: Wonder (new world full of potential signs)
-- **Secondary**: Hope (maybe this is where I find answers)
+- **Primary**: Excited (exploration)
+- **Secondary**: Aggressive (Take resources)
 
 ## Pending Decisions
 
-- Which direction feels "right" to explore?
-- Should I share my beliefs with the others?
-
-## Observed Signs
-
-*None yet - recording begins now*
+- Which direction to explore for resources?
+- Need to find people
 
 ---
 
-*Last updated: Day 1, Dawn*
+*Last updated: tick 0*

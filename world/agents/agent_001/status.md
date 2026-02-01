@@ -2,20 +2,13 @@
 
 ## Current State
 
-- **Health**: 100%
-- **Hunger**: 0% (full)
-- **Location**: Near spawn (0, 64, 0)
+- **Hunger**: 100% (full)
 - **Current Activity**: Idle
-
-## Inventory
-
-*Empty - just spawned*
 
 ## Active Goals
 
-1. **Immediate**: Find shelter before nightfall
-2. **Short-term**: Gather basic building materials (wood, stone)
-3. **Long-term**: Build a great monument
+2. **Short-term**: Stay satiated
+3. **Long-term**: Keep culture satiated
 
 ## Relationships
 
@@ -30,19 +23,17 @@
 
 ## Current Beliefs
 
-- The world is full of building potential
 - I must secure resources before others take them
 - Night will bring danger
 
 ## Emotional State
 
 - **Primary**: Anticipation (new world, new possibilities)
-- **Secondary**: Mild anxiety (uncertainty, no shelter)
+- **Secondary**: Mild anxiety (uncertainty)
 
 ## Pending Decisions
 
 - Which direction to explore for resources?
-- Cooperate with others or work alone?
 
 ---
 
