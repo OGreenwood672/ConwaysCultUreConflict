@@ -54,6 +54,37 @@ def give_green_what_he_really_really_wants(people):
         json.dump(json_content, file)
 
 
+def write_checkpoint(tick, people, buildings, updates_buffer):
+    """Write intermediate results every N ticks."""
+    import os
+
+    checkpoint_dir = "frontend/public/logs/checkpoints"
+    os.makedirs(checkpoint_dir, exist_ok=True)
+
+    # Write state snapshot as JSON
+    state = {
+        "tick": tick,
+        "people": [
+            {"id": p.id, "culture": p.culture, "x": p.pos.x, "y": p.pos.y}
+            for p in people
+        ],
+        "buildings": [
+            {"id": b.id, "culture": b.culture, "x": b.pos.x, "y": b.pos.y}
+            for b in buildings
+        ],
+    }
+    with open(f"{checkpoint_dir}/state_tick_{tick:04d}.json", "w") as f:
+        json.dump(state, f, indent=2)
+
+    # Write updates buffer as CSV
+    with open(f"{checkpoint_dir}/updates_tick_{tick:04d}.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["tick", "agent_id", "action", "x", "y", "other_agent_id", "culture"])
+        writer.writerows(updates_buffer)
+
+    print(f"Checkpoint written at tick {tick}")
+
+
 def get_action_json(people, buildings):
     json = []
 
@@ -158,16 +189,49 @@ def start():
 
     give_green_what_he_really_really_wants(people)
 
+    total_ticks = 1000
+    checkpoint_interval = 10
+    updates_buffer = []  # Buffer for checkpoint writes
+
     with open("frontend/public/logs/updates.csv", "w", newline="") as csv_file:
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(
             ["tick", "agent_id", "action", "x", "y", "other_agent_id", "culture"]
         )
 
-        for tick in range(2):
+        for tick in range(total_ticks):
             action_json = get_action_json(people, buildings)
-            updates = simulation_interface.process_tick(tick, action_json)
+            results = simulation_interface.process_tick(tick, action_json)
+            # Handle both dict and SimAction returns (depends on import path)
+            updates = [
+                SimAction.from_dict(r) if isinstance(r, dict) else r
+                for r in results
+            ]
+
+            # Collect rows for buffer before update_world modifies positions
+            people_by_id = {p.id: p for p in people}
+            for action in updates:
+                person = people_by_id.get(action.person_id)
+                if person:
+                    updates_buffer.append([
+                        action.tick,
+                        action.person_id,
+                        action.action_type.value,
+                        person.pos.x,
+                        person.pos.y,
+                        "",
+                        person.culture,
+                    ])
+
             update_world(updates, people, buildings, csv_writer)
+            print(f"Tick {tick}: {len(updates)} actions")
+
+            # Write checkpoint every N ticks
+            if (tick + 1) % checkpoint_interval == 0:
+                write_checkpoint(tick + 1, people, buildings, updates_buffer)
+                updates_buffer = []  # Clear buffer after checkpoint
+
+    print(f"Simulation complete: {total_ticks} ticks")
 
 
 if __name__ == "__main__":
