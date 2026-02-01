@@ -1,387 +1,937 @@
 {
-  "timestamp": "2026-02-01T08:09:47.962Z",
+  "timestamp": "2026-02-01T08:28:39.243Z",
   "agents": {
-    "forge_001": {
-      "culture": "forge",
+    "agent_004": {
+      "culture": "alpha",
       "position": {
-        "x": -20,
+        "x": 4,
         "y": -60,
-        "z": 39
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "GATHER",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [],
-      "structuresBuilt": 1
-    },
-    "forge_002": {
-      "culture": "forge",
-      "position": {
-        "x": 118,
-        "y": -60,
-        "z": -72
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "GATHER",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [],
-      "structuresBuilt": 1
-    },
-    "forge_003": {
-      "culture": "forge",
-      "position": {
-        "x": 53,
-        "y": -60,
-        "z": 37
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "PEACEFUL",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [
-        {
-          "id": "forge_006",
-          "distance": 2
-        },
-        {
-          "id": "grove_001",
-          "distance": 11
-        },
-        {
-          "id": "crimson_006",
-          "distance": 15
-        }
-      ],
-      "structuresBuilt": 2
-    },
-    "forge_004": {
-      "culture": "forge",
-      "position": {
-        "x": 22,
-        "y": -60,
-        "z": 50
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "GATHER",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [],
-      "structuresBuilt": 1
-    },
-    "forge_005": {
-      "culture": "forge",
-      "position": {
-        "x": 130,
-        "y": -60,
-        "z": 138
+        "z": 7
       },
       "health": 20,
       "food": 20,
       "currentPhase": "AGGRESSIVE",
       "isBuilding": false,
       "isBusy": false,
-      "nearbyAgents": [],
-      "structuresBuilt": 2
-    },
-    "forge_006": {
-      "culture": "forge",
-      "position": {
-        "x": 54,
-        "y": -60,
-        "z": 39
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "PEACEFUL",
-      "isBuilding": false,
-      "isBusy": false,
       "nearbyAgents": [
         {
-          "id": "forge_003",
-          "distance": 2
+          "id": "agent_006",
+          "distance": 17
+        },
+        {
+          "id": "crimson_002",
+          "distance": 14
+        },
+        {
+          "id": "crimson_001",
+          "distance": 18
         },
         {
           "id": "grove_001",
-          "distance": 12
-        },
-        {
-          "id": "crimson_006",
-          "distance": 16
+          "distance": 18
         }
       ],
-      "structuresBuilt": 3
-    },
-    "grove_001": {
-      "culture": "grove",
-      "position": {
-        "x": 61,
-        "y": -60,
-        "z": 29
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "BUILD",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [
+      "nearbyEnemies": [
         {
-          "id": "forge_003",
-          "distance": 11
+          "id": "crimson_002",
+          "distance": 14,
+          "culture": "crimson"
         },
         {
-          "id": "forge_006",
-          "distance": 12
+          "id": "crimson_001",
+          "distance": 18,
+          "culture": "crimson"
         },
         {
-          "id": "crimson_006",
-          "distance": 20
+          "id": "grove_001",
+          "distance": 18,
+          "culture": "grove"
         }
       ],
-      "structuresBuilt": 4
+      "structuresBuilt": 1,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
     },
-    "crimson_004": {
-      "culture": "crimson",
+    "agent_005": {
+      "culture": "alpha",
       "position": {
-        "x": -58,
+        "x": 45,
         "y": -60,
-        "z": -4
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "PEACEFUL",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [
-        {
-          "id": "grove_002",
-          "distance": 15
-        }
-      ],
-      "structuresBuilt": 2
-    },
-    "crimson_005": {
-      "culture": "crimson",
-      "position": {
-        "x": -5,
-        "y": -60,
-        "z": -5
+        "z": 19
       },
       "health": 20,
       "food": 20,
       "currentPhase": "EXPLORE",
       "isBuilding": false,
       "isBusy": false,
-      "nearbyAgents": [],
-      "structuresBuilt": 0
-    },
-    "crimson_006": {
-      "culture": "crimson",
-      "position": {
-        "x": 41,
-        "y": -60,
-        "z": 29
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "GATHER",
-      "isBuilding": false,
-      "isBusy": false,
       "nearbyAgents": [
         {
-          "id": "forge_003",
-          "distance": 15
+          "id": "crimson_007",
+          "distance": 6
         },
         {
           "id": "forge_006",
           "distance": 16
         },
         {
-          "id": "grove_001",
-          "distance": 20
-        }
-      ],
-      "structuresBuilt": 0
-    },
-    "crimson_007": {
-      "culture": "crimson",
-      "position": {
-        "x": -1,
-        "y": -60,
-        "z": -85
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "BUILD",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [
+          "id": "grove_003",
+          "distance": 17
+        },
         {
           "id": "agent_002",
-          "distance": 3
+          "distance": 2
         }
       ],
-      "structuresBuilt": 4
-    },
-    "grove_002": {
-      "culture": "grove",
-      "position": {
-        "x": -59,
-        "y": -60,
-        "z": 11
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "BUILD",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [
+      "nearbyEnemies": [
         {
-          "id": "crimson_004",
-          "distance": 15
-        }
-      ],
-      "structuresBuilt": 3
-    },
-    "grove_003": {
-      "culture": "grove",
-      "position": {
-        "x": -41,
-        "y": -60,
-        "z": -67
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "BUILD",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [],
-      "structuresBuilt": 2
-    },
-    "grove_005": {
-      "culture": "grove",
-      "position": {
-        "x": 32,
-        "y": -60,
-        "z": -25
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "BUILD",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [
-        {
-          "id": "crimson_001",
-          "distance": 17
+          "id": "crimson_007",
+          "distance": 6,
+          "culture": "crimson"
         },
         {
-          "id": "agent_004",
-          "distance": 17
-        }
-      ],
-      "structuresBuilt": 3
-    },
-    "grove_004": {
-      "culture": "grove",
-      "position": {
-        "x": -33,
-        "y": -61,
-        "z": 10
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "BUILD",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [
-        {
-          "id": "crimson_002",
-          "distance": 19
-        }
-      ],
-      "structuresBuilt": 4
-    },
-    "grove_006": {
-      "culture": "grove",
-      "position": {
-        "x": -14,
-        "y": -60,
-        "z": 72
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "BUILD",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [],
-      "structuresBuilt": 2
-    },
-    "crimson_001": {
-      "culture": "crimson",
-      "position": {
-        "x": 28,
-        "y": -60,
-        "z": -9
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "BUILD",
-      "isBuilding": true,
-      "isBusy": false,
-      "nearbyAgents": [
-        {
-          "id": "grove_005",
-          "distance": 17
+          "id": "forge_006",
+          "distance": 16,
+          "culture": "forge"
         },
         {
-          "id": "agent_004",
-          "distance": 10
+          "id": "grove_003",
+          "distance": 17,
+          "culture": "grove"
         }
       ],
-      "structuresBuilt": 2
-    },
-    "crimson_003": {
-      "culture": "crimson",
-      "position": {
-        "x": -2,
-        "y": -60,
-        "z": 30
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "BUILD",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [],
-      "structuresBuilt": 2
+      "structuresBuilt": 1,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
     },
     "agent_006": {
       "culture": "alpha",
       "position": {
-        "x": -42,
+        "x": 5,
         "y": -60,
-        "z": -33
+        "z": 24
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "PEACEFUL",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "agent_004",
+          "distance": 17
+        },
+        {
+          "id": "crimson_001",
+          "distance": 1
+        },
+        {
+          "id": "grove_001",
+          "distance": 3
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "crimson_001",
+          "distance": 1,
+          "culture": "crimson"
+        },
+        {
+          "id": "grove_001",
+          "distance": 3,
+          "culture": "grove"
+        }
+      ],
+      "structuresBuilt": 2,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "grove_006": {
+      "culture": "grove",
+      "position": {
+        "x": 5,
+        "y": -60,
+        "z": -29
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "forge_002",
+          "distance": 1
+        },
+        {
+          "id": "crimson_006",
+          "distance": 2
+        },
+        {
+          "id": "forge_005",
+          "distance": 13
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "forge_002",
+          "distance": 1,
+          "culture": "forge"
+        },
+        {
+          "id": "crimson_006",
+          "distance": 2,
+          "culture": "crimson"
+        },
+        {
+          "id": "forge_005",
+          "distance": 13,
+          "culture": "forge"
+        }
+      ],
+      "structuresBuilt": 3,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "agent_003": {
+      "culture": "alpha",
+      "position": {
+        "x": 35,
+        "y": -60,
+        "z": 1
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "crimson_005",
+          "distance": 19
+        },
+        {
+          "id": "forge_006",
+          "distance": 8
+        },
+        {
+          "id": "grove_003",
+          "distance": 6
+        },
+        {
+          "id": "grove_005",
+          "distance": 3
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "crimson_005",
+          "distance": 19,
+          "culture": "crimson"
+        },
+        {
+          "id": "forge_006",
+          "distance": 8,
+          "culture": "forge"
+        },
+        {
+          "id": "grove_003",
+          "distance": 6,
+          "culture": "grove"
+        },
+        {
+          "id": "grove_005",
+          "distance": 3,
+          "culture": "grove"
+        }
+      ],
+      "structuresBuilt": 3,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "crimson_005": {
+      "culture": "crimson",
+      "position": {
+        "x": 46,
+        "y": -60,
+        "z": -16
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "agent_003",
+          "distance": 19
+        },
+        {
+          "id": "grove_002",
+          "distance": 20
+        },
+        {
+          "id": "grove_005",
+          "distance": 16
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "agent_003",
+          "distance": 19,
+          "culture": "alpha"
+        },
+        {
+          "id": "grove_002",
+          "distance": 20,
+          "culture": "grove"
+        },
+        {
+          "id": "grove_005",
+          "distance": 16,
+          "culture": "grove"
+        }
+      ],
+      "structuresBuilt": 3,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "crimson_002": {
+      "culture": "crimson",
+      "position": {
+        "x": 5,
+        "y": -60,
+        "z": -7
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "agent_004",
+          "distance": 14
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "agent_004",
+          "distance": 14,
+          "culture": "alpha"
+        }
+      ],
+      "structuresBuilt": 3,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "crimson_003": {
+      "culture": "crimson",
+      "position": {
+        "x": -24,
+        "y": -60,
+        "z": 1
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "forge_001",
+          "distance": 1
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "forge_001",
+          "distance": 1,
+          "culture": "forge"
+        }
+      ],
+      "structuresBuilt": 1,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "crimson_001": {
+      "culture": "crimson",
+      "position": {
+        "x": 4,
+        "y": -60,
+        "z": 25
       },
       "health": 20,
       "food": 20,
       "currentPhase": "BUILD",
       "isBuilding": true,
       "isBusy": false,
-      "nearbyAgents": [],
-      "structuresBuilt": 2
+      "nearbyAgents": [
+        {
+          "id": "agent_004",
+          "distance": 18
+        },
+        {
+          "id": "agent_006",
+          "distance": 1
+        },
+        {
+          "id": "grove_001",
+          "distance": 2
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "agent_004",
+          "distance": 18,
+          "culture": "alpha"
+        },
+        {
+          "id": "agent_006",
+          "distance": 1,
+          "culture": "alpha"
+        },
+        {
+          "id": "grove_001",
+          "distance": 2,
+          "culture": "grove"
+        }
+      ],
+      "structuresBuilt": 3,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
     },
-    "crimson_002": {
-      "culture": "crimson",
+    "forge_001": {
+      "culture": "forge",
       "position": {
         "x": -25,
         "y": -60,
-        "z": -6
+        "z": -1
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "crimson_003",
+          "distance": 1
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "crimson_003",
+          "distance": 1,
+          "culture": "crimson"
+        }
+      ],
+      "structuresBuilt": 2,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "crimson_004": {
+      "culture": "crimson",
+      "position": {
+        "x": 27,
+        "y": -60,
+        "z": -56
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "nearbyEnemies": [],
+      "structuresBuilt": 2,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "forge_002": {
+      "culture": "forge",
+      "position": {
+        "x": 3,
+        "y": -60,
+        "z": -28
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "grove_006",
+          "distance": 1
+        },
+        {
+          "id": "crimson_006",
+          "distance": 3
+        },
+        {
+          "id": "forge_005",
+          "distance": 14
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "grove_006",
+          "distance": 1,
+          "culture": "grove"
+        },
+        {
+          "id": "crimson_006",
+          "distance": 3,
+          "culture": "crimson"
+        }
+      ],
+      "structuresBuilt": 3,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "crimson_006": {
+      "culture": "crimson",
+      "position": {
+        "x": 6,
+        "y": -60,
+        "z": -30
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "grove_006",
+          "distance": 2
+        },
+        {
+          "id": "forge_002",
+          "distance": 3
+        },
+        {
+          "id": "forge_005",
+          "distance": 11
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "grove_006",
+          "distance": 2,
+          "culture": "grove"
+        },
+        {
+          "id": "forge_002",
+          "distance": 3,
+          "culture": "forge"
+        },
+        {
+          "id": "forge_005",
+          "distance": 11,
+          "culture": "forge"
+        }
+      ],
+      "structuresBuilt": 1,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "forge_003": {
+      "culture": "forge",
+      "position": {
+        "x": 25,
+        "y": -60,
+        "z": 44
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "nearbyEnemies": [],
+      "structuresBuilt": 1,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "forge_005": {
+      "culture": "forge",
+      "position": {
+        "x": 8,
+        "y": -60,
+        "z": -41
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "grove_006",
+          "distance": 13
+        },
+        {
+          "id": "forge_002",
+          "distance": 14
+        },
+        {
+          "id": "crimson_006",
+          "distance": 11
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "grove_006",
+          "distance": 13,
+          "culture": "grove"
+        },
+        {
+          "id": "crimson_006",
+          "distance": 11,
+          "culture": "crimson"
+        }
+      ],
+      "structuresBuilt": 3,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "crimson_007": {
+      "culture": "crimson",
+      "position": {
+        "x": 51,
+        "y": -60,
+        "z": 17
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": true,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "agent_005",
+          "distance": 6
+        },
+        {
+          "id": "agent_002",
+          "distance": 7
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "agent_005",
+          "distance": 6,
+          "culture": "alpha"
+        },
+        {
+          "id": "agent_002",
+          "distance": 7,
+          "culture": "alpha"
+        }
+      ],
+      "structuresBuilt": 2,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "forge_006": {
+      "culture": "forge",
+      "position": {
+        "x": 32,
+        "y": -60,
+        "z": 9
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "agent_005",
+          "distance": 16
+        },
+        {
+          "id": "agent_003",
+          "distance": 8
+        },
+        {
+          "id": "grove_003",
+          "distance": 3
+        },
+        {
+          "id": "grove_005",
+          "distance": 11
+        },
+        {
+          "id": "agent_002",
+          "distance": 16
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "agent_005",
+          "distance": 16,
+          "culture": "alpha"
+        },
+        {
+          "id": "agent_003",
+          "distance": 8,
+          "culture": "alpha"
+        },
+        {
+          "id": "grove_003",
+          "distance": 3,
+          "culture": "grove"
+        },
+        {
+          "id": "grove_005",
+          "distance": 11,
+          "culture": "grove"
+        },
+        {
+          "id": "agent_002",
+          "distance": 16,
+          "culture": "alpha"
+        }
+      ],
+      "structuresBuilt": 3,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "grove_001": {
+      "culture": "grove",
+      "position": {
+        "x": 2,
+        "y": -60,
+        "z": 25
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": true,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "agent_004",
+          "distance": 18
+        },
+        {
+          "id": "agent_006",
+          "distance": 3
+        },
+        {
+          "id": "crimson_001",
+          "distance": 2
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "agent_004",
+          "distance": 18,
+          "culture": "alpha"
+        },
+        {
+          "id": "agent_006",
+          "distance": 3,
+          "culture": "alpha"
+        },
+        {
+          "id": "crimson_001",
+          "distance": 2,
+          "culture": "crimson"
+        }
+      ],
+      "structuresBuilt": 1,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "forge_004": {
+      "culture": "forge",
+      "position": {
+        "x": 77,
+        "y": -60,
+        "z": -8
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [],
+      "nearbyEnemies": [],
+      "structuresBuilt": 2,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "grove_002": {
+      "culture": "grove",
+      "position": {
+        "x": 27,
+        "y": -60,
+        "z": -20
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "crimson_005",
+          "distance": 20
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "crimson_005",
+          "distance": 20,
+          "culture": "crimson"
+        }
+      ],
+      "structuresBuilt": 2,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "grove_004": {
+      "culture": "grove",
+      "position": {
+        "x": -19,
+        "y": -60,
+        "z": -28
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": true,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "agent_001",
+          "distance": 16
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "agent_001",
+          "distance": 16,
+          "culture": "alpha"
+        }
+      ],
+      "structuresBuilt": 3,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "grove_003": {
+      "culture": "grove",
+      "position": {
+        "x": 33,
+        "y": -60,
+        "z": 6
+      },
+      "health": 20,
+      "food": 20,
+      "currentPhase": "BUILD",
+      "isBuilding": false,
+      "isBusy": false,
+      "nearbyAgents": [
+        {
+          "id": "agent_005",
+          "distance": 17
+        },
+        {
+          "id": "agent_003",
+          "distance": 6
+        },
+        {
+          "id": "forge_006",
+          "distance": 3
+        },
+        {
+          "id": "grove_005",
+          "distance": 9
+        },
+        {
+          "id": "agent_002",
+          "distance": 17
+        }
+      ],
+      "nearbyEnemies": [
+        {
+          "id": "agent_005",
+          "distance": 17,
+          "culture": "alpha"
+        },
+        {
+          "id": "agent_003",
+          "distance": 6,
+          "culture": "alpha"
+        },
+        {
+          "id": "forge_006",
+          "distance": 3,
+          "culture": "forge"
+        },
+        {
+          "id": "agent_002",
+          "distance": 17,
+          "culture": "alpha"
+        }
+      ],
+      "structuresBuilt": 2,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
+    },
+    "agent_001": {
+      "culture": "alpha",
+      "position": {
+        "x": -34,
+        "y": -60,
+        "z": -33
       },
       "health": 20,
       "food": 20,
@@ -391,32 +941,28 @@
       "nearbyAgents": [
         {
           "id": "grove_004",
-          "distance": 19
+          "distance": 16
         }
       ],
-      "structuresBuilt": 1
+      "nearbyEnemies": [
+        {
+          "id": "grove_004",
+          "distance": 16,
+          "culture": "grove"
+        }
+      ],
+      "structuresBuilt": 4,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
     },
-    "agent_005": {
-      "culture": "alpha",
+    "grove_005": {
+      "culture": "grove",
       "position": {
-        "x": 66,
+        "x": 37,
         "y": -60,
-        "z": 3
-      },
-      "health": 20,
-      "food": 20,
-      "currentPhase": "BUILD",
-      "isBuilding": false,
-      "isBusy": false,
-      "nearbyAgents": [],
-      "structuresBuilt": 0
-    },
-    "agent_004": {
-      "culture": "alpha",
-      "position": {
-        "x": 19,
-        "y": -60,
-        "z": -14
+        "z": -1
       },
       "health": 20,
       "food": 20,
@@ -425,22 +971,51 @@
       "isBusy": false,
       "nearbyAgents": [
         {
-          "id": "grove_005",
-          "distance": 17
+          "id": "agent_003",
+          "distance": 3
         },
         {
-          "id": "crimson_001",
-          "distance": 10
+          "id": "crimson_005",
+          "distance": 16
+        },
+        {
+          "id": "forge_006",
+          "distance": 11
+        },
+        {
+          "id": "grove_003",
+          "distance": 9
         }
       ],
-      "structuresBuilt": 0
+      "nearbyEnemies": [
+        {
+          "id": "agent_003",
+          "distance": 3,
+          "culture": "alpha"
+        },
+        {
+          "id": "crimson_005",
+          "distance": 16,
+          "culture": "crimson"
+        },
+        {
+          "id": "forge_006",
+          "distance": 11,
+          "culture": "forge"
+        }
+      ],
+      "structuresBuilt": 3,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
     },
     "agent_002": {
       "culture": "alpha",
       "position": {
-        "x": -2,
+        "x": 44,
         "y": -60,
-        "z": -81
+        "z": 20
       },
       "health": 20,
       "food": 20,
@@ -449,75 +1024,244 @@
       "isBusy": false,
       "nearbyAgents": [
         {
+          "id": "agent_005",
+          "distance": 2
+        },
+        {
           "id": "crimson_007",
-          "distance": 3
+          "distance": 7
+        },
+        {
+          "id": "forge_006",
+          "distance": 16
+        },
+        {
+          "id": "grove_003",
+          "distance": 17
         }
       ],
-      "structuresBuilt": 0
+      "nearbyEnemies": [
+        {
+          "id": "crimson_007",
+          "distance": 7,
+          "culture": "crimson"
+        },
+        {
+          "id": "forge_006",
+          "distance": 16,
+          "culture": "forge"
+        },
+        {
+          "id": "grove_003",
+          "distance": 17,
+          "culture": "grove"
+        }
+      ],
+      "structuresBuilt": 1,
+      "combatStats": {
+        "kills": 0,
+        "deaths": 0
+      }
     }
   },
   "structures": {
-    "alpha": 14,
-    "forge": 11,
-    "grove": 26,
-    "crimson": 15
+    "alpha": 17,
+    "forge": 23,
+    "grove": 22,
+    "crimson": 22
   },
   "nearbyPairs": [
     {
-      "key": "forge_003-forge_006",
+      "key": "agent_004-agent_006",
       "agents": [
-        "forge_003",
+        "agent_004",
+        "agent_006"
+      ],
+      "distance": 17
+    },
+    {
+      "key": "agent_004-crimson_002",
+      "agents": [
+        "agent_004",
+        "crimson_002"
+      ],
+      "distance": 14
+    },
+    {
+      "key": "agent_004-crimson_001",
+      "agents": [
+        "agent_004",
+        "crimson_001"
+      ],
+      "distance": 18
+    },
+    {
+      "key": "agent_004-grove_001",
+      "agents": [
+        "agent_004",
+        "grove_001"
+      ],
+      "distance": 18
+    },
+    {
+      "key": "agent_005-crimson_007",
+      "agents": [
+        "agent_005",
+        "crimson_007"
+      ],
+      "distance": 6
+    },
+    {
+      "key": "agent_005-forge_006",
+      "agents": [
+        "agent_005",
         "forge_006"
-      ],
-      "distance": 2
-    },
-    {
-      "key": "forge_003-grove_001",
-      "agents": [
-        "forge_003",
-        "grove_001"
-      ],
-      "distance": 11
-    },
-    {
-      "key": "crimson_006-forge_003",
-      "agents": [
-        "forge_003",
-        "crimson_006"
-      ],
-      "distance": 15
-    },
-    {
-      "key": "forge_006-grove_001",
-      "agents": [
-        "forge_006",
-        "grove_001"
-      ],
-      "distance": 12
-    },
-    {
-      "key": "crimson_006-forge_006",
-      "agents": [
-        "forge_006",
-        "crimson_006"
       ],
       "distance": 16
     },
     {
-      "key": "crimson_006-grove_001",
+      "key": "agent_005-grove_003",
       "agents": [
-        "grove_001",
+        "agent_005",
+        "grove_003"
+      ],
+      "distance": 17
+    },
+    {
+      "key": "agent_002-agent_005",
+      "agents": [
+        "agent_005",
+        "agent_002"
+      ],
+      "distance": 2
+    },
+    {
+      "key": "agent_006-crimson_001",
+      "agents": [
+        "agent_006",
+        "crimson_001"
+      ],
+      "distance": 1
+    },
+    {
+      "key": "agent_006-grove_001",
+      "agents": [
+        "agent_006",
+        "grove_001"
+      ],
+      "distance": 3
+    },
+    {
+      "key": "forge_002-grove_006",
+      "agents": [
+        "grove_006",
+        "forge_002"
+      ],
+      "distance": 1
+    },
+    {
+      "key": "crimson_006-grove_006",
+      "agents": [
+        "grove_006",
         "crimson_006"
+      ],
+      "distance": 2
+    },
+    {
+      "key": "forge_005-grove_006",
+      "agents": [
+        "grove_006",
+        "forge_005"
+      ],
+      "distance": 13
+    },
+    {
+      "key": "agent_003-crimson_005",
+      "agents": [
+        "agent_003",
+        "crimson_005"
+      ],
+      "distance": 19
+    },
+    {
+      "key": "agent_003-forge_006",
+      "agents": [
+        "agent_003",
+        "forge_006"
+      ],
+      "distance": 8
+    },
+    {
+      "key": "agent_003-grove_003",
+      "agents": [
+        "agent_003",
+        "grove_003"
+      ],
+      "distance": 6
+    },
+    {
+      "key": "agent_003-grove_005",
+      "agents": [
+        "agent_003",
+        "grove_005"
+      ],
+      "distance": 3
+    },
+    {
+      "key": "crimson_005-grove_002",
+      "agents": [
+        "crimson_005",
+        "grove_002"
       ],
       "distance": 20
     },
     {
-      "key": "crimson_004-grove_002",
+      "key": "crimson_005-grove_005",
       "agents": [
-        "crimson_004",
-        "grove_002"
+        "crimson_005",
+        "grove_005"
       ],
-      "distance": 15
+      "distance": 16
+    },
+    {
+      "key": "crimson_003-forge_001",
+      "agents": [
+        "crimson_003",
+        "forge_001"
+      ],
+      "distance": 1
+    },
+    {
+      "key": "crimson_001-grove_001",
+      "agents": [
+        "crimson_001",
+        "grove_001"
+      ],
+      "distance": 2
+    },
+    {
+      "key": "crimson_006-forge_002",
+      "agents": [
+        "forge_002",
+        "crimson_006"
+      ],
+      "distance": 3
+    },
+    {
+      "key": "forge_002-forge_005",
+      "agents": [
+        "forge_002",
+        "forge_005"
+      ],
+      "distance": 14
+    },
+    {
+      "key": "crimson_006-forge_005",
+      "agents": [
+        "crimson_006",
+        "forge_005"
+      ],
+      "distance": 11
     },
     {
       "key": "agent_002-crimson_007",
@@ -525,39 +1269,374 @@
         "crimson_007",
         "agent_002"
       ],
+      "distance": 7
+    },
+    {
+      "key": "forge_006-grove_003",
+      "agents": [
+        "forge_006",
+        "grove_003"
+      ],
       "distance": 3
     },
     {
-      "key": "crimson_001-grove_005",
+      "key": "forge_006-grove_005",
       "agents": [
-        "grove_005",
-        "crimson_001"
+        "forge_006",
+        "grove_005"
       ],
-      "distance": 17
+      "distance": 11
     },
     {
-      "key": "agent_004-grove_005",
+      "key": "agent_002-forge_006",
       "agents": [
-        "grove_005",
-        "agent_004"
+        "forge_006",
+        "agent_002"
       ],
-      "distance": 17
+      "distance": 16
     },
     {
-      "key": "crimson_002-grove_004",
+      "key": "agent_001-grove_004",
       "agents": [
         "grove_004",
-        "crimson_002"
+        "agent_001"
       ],
-      "distance": 19
+      "distance": 16
     },
     {
-      "key": "agent_004-crimson_001",
+      "key": "grove_003-grove_005",
       "agents": [
-        "crimson_001",
-        "agent_004"
+        "grove_003",
+        "grove_005"
       ],
-      "distance": 10
+      "distance": 9
+    },
+    {
+      "key": "agent_002-grove_003",
+      "agents": [
+        "grove_003",
+        "agent_002"
+      ],
+      "distance": 17
     }
-  ]
+  ],
+  "conflicts": {
+    "activeWars": [
+      {
+        "cultures": [
+          "alpha",
+          "crimson"
+        ],
+        "startTime": 1769934403860,
+        "reason": "agent_006 initiated hostilities",
+        "kills": {
+          "alpha": 0,
+          "crimson": 0
+        },
+        "battleCount": 0
+      },
+      {
+        "cultures": [
+          "crimson",
+          "forge"
+        ],
+        "startTime": 1769934410447,
+        "reason": "forge_003 initiated hostilities",
+        "kills": {
+          "forge": 0,
+          "crimson": 0
+        },
+        "battleCount": 0
+      },
+      {
+        "cultures": [
+          "forge",
+          "grove"
+        ],
+        "startTime": 1769934415446,
+        "reason": "grove_004 initiated combat",
+        "kills": {
+          "grove": 0,
+          "forge": 0
+        },
+        "battleCount": 0
+      },
+      {
+        "cultures": [
+          "alpha",
+          "forge"
+        ],
+        "startTime": 1769934425489,
+        "reason": "forge_005 initiated hostilities",
+        "kills": {
+          "forge": 0,
+          "alpha": 0
+        },
+        "battleCount": 0
+      },
+      {
+        "cultures": [
+          "crimson",
+          "grove"
+        ],
+        "startTime": 1769934435083,
+        "reason": "grove_006 initiated hostilities",
+        "kills": {
+          "grove": 0,
+          "crimson": 0
+        },
+        "battleCount": 0
+      },
+      {
+        "cultures": [
+          "alpha",
+          "grove"
+        ],
+        "startTime": 1769934447402,
+        "reason": "agent_004 initiated hostilities",
+        "kills": {
+          "alpha": 0,
+          "grove": 0
+        },
+        "battleCount": 0
+      }
+    ],
+    "recentEvents": [
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "alpha",
+          "grove"
+        ],
+        "oldRelation": "neutral",
+        "newRelation": "tense",
+        "tension": 27,
+        "reason": "territorial standoff",
+        "timestamp": "2026-02-01T08:26:30.853Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "alpha",
+          "grove"
+        ],
+        "oldRelation": "tense",
+        "newRelation": "hostile",
+        "tension": 54,
+        "reason": "territorial standoff",
+        "timestamp": "2026-02-01T08:26:34.353Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "forge",
+          "grove"
+        ],
+        "oldRelation": "neutral",
+        "newRelation": "tense",
+        "tension": 26,
+        "reason": "border encounter",
+        "timestamp": "2026-02-01T08:26:34.353Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "crimson",
+          "forge"
+        ],
+        "oldRelation": "neutral",
+        "newRelation": "tense",
+        "tension": 25,
+        "reason": "border encounter",
+        "timestamp": "2026-02-01T08:26:34.353Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "alpha",
+          "crimson"
+        ],
+        "oldRelation": "neutral",
+        "newRelation": "tense",
+        "tension": 26,
+        "reason": "territorial standoff",
+        "timestamp": "2026-02-01T08:26:37.541Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "forge",
+          "grove"
+        ],
+        "oldRelation": "tense",
+        "newRelation": "hostile",
+        "tension": 53,
+        "reason": "verbal confrontation",
+        "timestamp": "2026-02-01T08:26:37.541Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "crimson",
+          "forge"
+        ],
+        "oldRelation": "tense",
+        "newRelation": "hostile",
+        "tension": 50,
+        "reason": "border encounter",
+        "timestamp": "2026-02-01T08:26:37.541Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "crimson",
+          "grove"
+        ],
+        "oldRelation": "neutral",
+        "newRelation": "tense",
+        "tension": 26,
+        "reason": "border encounter",
+        "timestamp": "2026-02-01T08:26:37.541Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "crimson",
+          "grove"
+        ],
+        "oldRelation": "tense",
+        "newRelation": "hostile",
+        "tension": 52,
+        "reason": "territorial standoff",
+        "timestamp": "2026-02-01T08:26:37.542Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "alpha",
+          "forge"
+        ],
+        "oldRelation": "neutral",
+        "newRelation": "tense",
+        "tension": 27,
+        "reason": "territorial standoff",
+        "timestamp": "2026-02-01T08:26:40.818Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "alpha",
+          "crimson"
+        ],
+        "oldRelation": "tense",
+        "newRelation": "hostile",
+        "tension": 53,
+        "reason": "territorial standoff",
+        "timestamp": "2026-02-01T08:26:40.818Z"
+      },
+      {
+        "type": "RELATION_CHANGE",
+        "cultures": [
+          "alpha",
+          "forge"
+        ],
+        "oldRelation": "tense",
+        "newRelation": "hostile",
+        "tension": 50,
+        "reason": "border encounter",
+        "timestamp": "2026-02-01T08:26:43.860Z"
+      },
+      {
+        "type": "WAR_DECLARED",
+        "cultures": [
+          "alpha",
+          "crimson"
+        ],
+        "reason": "agent_006 initiated hostilities",
+        "tension": 100,
+        "timestamp": "2026-02-01T08:26:43.860Z"
+      },
+      {
+        "type": "WAR_DECLARED",
+        "cultures": [
+          "forge",
+          "crimson"
+        ],
+        "reason": "forge_003 initiated hostilities",
+        "tension": 100,
+        "timestamp": "2026-02-01T08:26:50.447Z"
+      },
+      {
+        "type": "WAR_DECLARED",
+        "cultures": [
+          "grove",
+          "forge"
+        ],
+        "reason": "grove_004 initiated combat",
+        "tension": 100,
+        "timestamp": "2026-02-01T08:26:55.446Z"
+      },
+      {
+        "type": "WAR_DECLARED",
+        "cultures": [
+          "forge",
+          "alpha"
+        ],
+        "reason": "forge_005 initiated hostilities",
+        "tension": 100,
+        "timestamp": "2026-02-01T08:27:05.489Z"
+      },
+      {
+        "type": "WAR_DECLARED",
+        "cultures": [
+          "grove",
+          "crimson"
+        ],
+        "reason": "grove_006 initiated hostilities",
+        "tension": 100,
+        "timestamp": "2026-02-01T08:27:15.083Z"
+      },
+      {
+        "type": "WAR_DECLARED",
+        "cultures": [
+          "alpha",
+          "grove"
+        ],
+        "reason": "agent_004 initiated hostilities",
+        "tension": 100,
+        "timestamp": "2026-02-01T08:27:27.402Z"
+      }
+    ],
+    "killCounts": {},
+    "cultureRelations": {
+      "alpha": {
+        "forge": "war",
+        "grove": "war",
+        "crimson": "war"
+      },
+      "forge": {
+        "alpha": "war",
+        "grove": "war",
+        "crimson": "war"
+      },
+      "grove": {
+        "alpha": "war",
+        "forge": "war",
+        "crimson": "war"
+      },
+      "crimson": {
+        "alpha": "war",
+        "forge": "war",
+        "grove": "war"
+      }
+    },
+    "tensions": {
+      "alpha-forge": 100,
+      "alpha-grove": 100,
+      "alpha-crimson": 100,
+      "forge-grove": 100,
+      "crimson-forge": 100,
+      "crimson-grove": 100
+    }
+  }
 }

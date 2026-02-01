@@ -1,155 +1,155 @@
 {
-  "timestamp": "2026-02-01T08:07:43.274396Z",
+  "timestamp": "2026-02-01T08:25:57.673114Z",
   "agents": {
     "agent_001": {
+      "phase": "BUILD",
+      "target": null,
+      "priority": "high",
+      "reasoning": "As a new settler with no shelter and survival as the primary drive, immediate construction of basic shelter is critical. With anticipation as the emotional state and no immediate threats, focusing on creating a protective structure is the most logical first step for survival."
+    },
+    "agent_002": {
       "phase": "GATHER",
       "target": null,
       "priority": "high",
-      "reasoning": "With a new settlement of only 3 people and survival as the primary drive, the builder should focus on collecting essential resources to support the group's immediate needs. The shelter is already established, but gathering materials for future construction, tools, and potential expansion is critical. The anticipatory emotional state suggests proactive resource collection before potential challenges arise."
-    },
-    "agent_002": {
-      "phase": "BUILD",
-      "target": null,
-      "priority": "low",
-      "reasoning": "Creating shelter"
+      "reasoning": "Collecting resources"
     },
     "agent_003": {
-      "phase": "BUILD",
+      "phase": "GATHER",
       "target": null,
-      "priority": "low",
-      "reasoning": "Building for the future"
+      "priority": "medium",
+      "reasoning": "Collecting resources"
     },
     "agent_004": {
+      "phase": "AGGRESSIVE",
+      "target": "crimson_001",
+      "priority": "high",
+      "reasoning": "Asserting dominance"
+    },
+    "agent_005": {
+      "phase": "EXPLORE",
+      "target": null,
+      "priority": "low",
+      "reasoning": "Scouting the area"
+    },
+    "agent_006": {
       "phase": "PEACEFUL",
       "target": null,
       "priority": "medium",
       "reasoning": "Resting and socializing"
     },
-    "agent_005": {
-      "phase": "GATHER",
-      "target": null,
-      "priority": "high",
-      "reasoning": "Stockpiling supplies"
-    },
-    "agent_006": {
-      "phase": "FOLLOW",
-      "target": "crimson_003",
-      "priority": "high",
-      "reasoning": "Staying with allies"
-    },
     "crimson_001": {
-      "phase": "PEACEFUL",
-      "target": null,
+      "phase": "AGGRESSIVE",
+      "target": "agent_004",
       "priority": "low",
-      "reasoning": "Building relationships"
+      "reasoning": "Asserting dominance"
     },
     "crimson_002": {
       "phase": "BUILD",
       "target": null,
-      "priority": "high",
-      "reasoning": "Constructing structures"
+      "priority": "low",
+      "reasoning": "Building for the future"
     },
     "crimson_003": {
       "phase": "BUILD",
       "target": null,
       "priority": "high",
-      "reasoning": "With no population and no recent events, Scarmaker should focus on establishing a secure base of operations. Having shelter already provides a foundation, but further construction and infrastructure development will improve long-term survival prospects. The neutral emotional state and survival drive suggest methodical, defensive base-building is the most prudent initial strategy."
+      "reasoning": "With no population, no nearby agents, and a priority drive of survival, Scarmaker should focus on establishing a secure base and infrastructure. Having shelter already exists, but further construction and reinforcement will be crucial for long-term survival in an empty environment."
     },
     "crimson_004": {
-      "phase": "PEACEFUL",
+      "phase": "GATHER",
       "target": null,
-      "priority": "medium",
-      "reasoning": "Maintaining harmony"
+      "priority": "high",
+      "reasoning": "With no current population and a survival priority drive, Ember should focus on collecting essential resources like wood, stone, and food to establish initial infrastructure and prepare for potential future challenges. Having shelter already provides a safe base for resource gathering activities."
     },
     "crimson_005": {
-      "phase": "EXPLORE",
+      "phase": "AGGRESSIVE",
       "target": null,
-      "priority": "medium",
-      "reasoning": "Scouting the area"
+      "priority": "high",
+      "reasoning": "Defending territory"
     },
     "crimson_006": {
       "phase": "GATHER",
       "target": null,
-      "priority": "high",
-      "reasoning": "With a survival priority drive and no immediate social or combat needs, Redmaw should focus on collecting essential resources to establish basic survival infrastructure. The agent has shelter but needs to proactively gather materials for future construction and sustenance."
-    },
-    "crimson_007": {
-      "phase": "BUILD",
-      "target": null,
-      "priority": "high",
-      "reasoning": "Building for the future"
-    },
-    "forge_001": {
-      "phase": "GATHER",
-      "target": null,
-      "priority": "high",
-      "reasoning": "Stockpiling supplies"
-    },
-    "forge_002": {
-      "phase": "GATHER",
-      "target": null,
-      "priority": "medium",
+      "priority": "low",
       "reasoning": "Preparing for needs"
     },
-    "forge_003": {
-      "phase": "PEACEFUL",
+    "crimson_007": {
+      "phase": "GATHER",
       "target": null,
       "priority": "low",
-      "reasoning": "Building relationships"
+      "reasoning": "Preparing for needs"
+    },
+    "forge_001": {
+      "phase": "EXPLORE",
+      "target": null,
+      "priority": "low",
+      "reasoning": "Seeking new horizons"
+    },
+    "forge_002": {
+      "phase": "AGGRESSIVE",
+      "target": null,
+      "priority": "high",
+      "reasoning": "Confronting threats"
+    },
+    "forge_003": {
+      "phase": "AGGRESSIVE",
+      "target": "forge_006",
+      "priority": "low",
+      "reasoning": "Asserting dominance"
     },
     "forge_004": {
       "phase": "GATHER",
       "target": null,
-      "priority": "high",
-      "reasoning": "With established shelter and neutral health/hunger status, Blueprint should focus on collecting essential resources to support long-term survival. Current situation suggests proactive resource gathering will help prepare for potential future challenges or population expansion."
+      "priority": "medium",
+      "reasoning": "Stockpiling supplies"
     },
     "forge_005": {
       "phase": "AGGRESSIVE",
-      "target": "crimson_001",
-      "priority": "low",
-      "reasoning": "Defending territory"
+      "target": null,
+      "priority": "medium",
+      "reasoning": "Asserting dominance"
     },
     "forge_006": {
-      "phase": "PEACEFUL",
+      "phase": "GATHER",
       "target": null,
       "priority": "high",
-      "reasoning": "Building relationships"
+      "reasoning": "With no population established and a survival priority drive, Hammerfall needs to collect essential resources to enable future base building and sustainability. Currently having shelter reduces immediate risk, so resource gathering becomes the primary focus to prepare for potential expansion and population growth."
     },
     "grove_001": {
-      "phase": "BUILD",
+      "phase": "PEACEFUL",
       "target": null,
-      "priority": "high",
-      "reasoning": "As the first agent with an established shelter, Rootmother should focus on initial infrastructure development. No current threats exist, population is zero, and survival drive suggests strategic construction of basic survival structures. Current shelter provides safety for initial building phase."
+      "priority": "medium",
+      "reasoning": "Building relationships"
     },
     "grove_002": {
-      "phase": "AGGRESSIVE",
-      "target": "grove_004",
-      "priority": "low",
-      "reasoning": "Confronting threats"
-    },
-    "grove_003": {
-      "phase": "BUILD",
-      "target": null,
-      "priority": "medium",
-      "reasoning": "Building for the future"
-    },
-    "grove_004": {
-      "phase": "BUILD",
-      "target": null,
-      "priority": "medium",
-      "reasoning": "Constructing structures"
-    },
-    "grove_005": {
       "phase": "PEACEFUL",
       "target": null,
       "priority": "low",
       "reasoning": "Maintaining harmony"
     },
-    "grove_006": {
+    "grove_003": {
+      "phase": "PEACEFUL",
+      "target": null,
+      "priority": "medium",
+      "reasoning": "Maintaining harmony"
+    },
+    "grove_004": {
+      "phase": "AGGRESSIVE",
+      "target": "crimson_002",
+      "priority": "low",
+      "reasoning": "Asserting dominance"
+    },
+    "grove_005": {
       "phase": "EXPLORE",
       "target": null,
-      "priority": "low",
-      "reasoning": "Scouting the area"
+      "priority": "medium",
+      "reasoning": "Discovering resources"
+    },
+    "grove_006": {
+      "phase": "BUILD",
+      "target": null,
+      "priority": "high",
+      "reasoning": "With a population of 0 and established norms, Hollowsong should focus on creating initial infrastructure and shelter to support future survival. The agent has full health and no immediate threats, making construction a logical first priority to establish a sustainable settlement."
     }
   }
 }

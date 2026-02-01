@@ -1,0 +1,272 @@
+{
+  "timestamp": "2026-02-01T08:28:39.244Z",
+  "events": [
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "alpha",
+        "grove"
+      ],
+      "oldRelation": "neutral",
+      "newRelation": "tense",
+      "tension": 27,
+      "reason": "territorial standoff",
+      "timestamp": "2026-02-01T08:26:30.853Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "alpha",
+        "grove"
+      ],
+      "oldRelation": "tense",
+      "newRelation": "hostile",
+      "tension": 54,
+      "reason": "territorial standoff",
+      "timestamp": "2026-02-01T08:26:34.353Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "forge",
+        "grove"
+      ],
+      "oldRelation": "neutral",
+      "newRelation": "tense",
+      "tension": 26,
+      "reason": "border encounter",
+      "timestamp": "2026-02-01T08:26:34.353Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "crimson",
+        "forge"
+      ],
+      "oldRelation": "neutral",
+      "newRelation": "tense",
+      "tension": 25,
+      "reason": "border encounter",
+      "timestamp": "2026-02-01T08:26:34.353Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "alpha",
+        "crimson"
+      ],
+      "oldRelation": "neutral",
+      "newRelation": "tense",
+      "tension": 26,
+      "reason": "territorial standoff",
+      "timestamp": "2026-02-01T08:26:37.541Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "forge",
+        "grove"
+      ],
+      "oldRelation": "tense",
+      "newRelation": "hostile",
+      "tension": 53,
+      "reason": "verbal confrontation",
+      "timestamp": "2026-02-01T08:26:37.541Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "crimson",
+        "forge"
+      ],
+      "oldRelation": "tense",
+      "newRelation": "hostile",
+      "tension": 50,
+      "reason": "border encounter",
+      "timestamp": "2026-02-01T08:26:37.541Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "crimson",
+        "grove"
+      ],
+      "oldRelation": "neutral",
+      "newRelation": "tense",
+      "tension": 26,
+      "reason": "border encounter",
+      "timestamp": "2026-02-01T08:26:37.541Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "crimson",
+        "grove"
+      ],
+      "oldRelation": "tense",
+      "newRelation": "hostile",
+      "tension": 52,
+      "reason": "territorial standoff",
+      "timestamp": "2026-02-01T08:26:37.542Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "alpha",
+        "forge"
+      ],
+      "oldRelation": "neutral",
+      "newRelation": "tense",
+      "tension": 27,
+      "reason": "territorial standoff",
+      "timestamp": "2026-02-01T08:26:40.818Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "alpha",
+        "crimson"
+      ],
+      "oldRelation": "tense",
+      "newRelation": "hostile",
+      "tension": 53,
+      "reason": "territorial standoff",
+      "timestamp": "2026-02-01T08:26:40.818Z"
+    },
+    {
+      "type": "RELATION_CHANGE",
+      "cultures": [
+        "alpha",
+        "forge"
+      ],
+      "oldRelation": "tense",
+      "newRelation": "hostile",
+      "tension": 50,
+      "reason": "border encounter",
+      "timestamp": "2026-02-01T08:26:43.860Z"
+    },
+    {
+      "type": "WAR_DECLARED",
+      "cultures": [
+        "alpha",
+        "crimson"
+      ],
+      "reason": "agent_006 initiated hostilities",
+      "tension": 100,
+      "timestamp": "2026-02-01T08:26:43.860Z"
+    },
+    {
+      "type": "WAR_DECLARED",
+      "cultures": [
+        "forge",
+        "crimson"
+      ],
+      "reason": "forge_003 initiated hostilities",
+      "tension": 100,
+      "timestamp": "2026-02-01T08:26:50.447Z"
+    },
+    {
+      "type": "WAR_DECLARED",
+      "cultures": [
+        "grove",
+        "forge"
+      ],
+      "reason": "grove_004 initiated combat",
+      "tension": 100,
+      "timestamp": "2026-02-01T08:26:55.446Z"
+    },
+    {
+      "type": "WAR_DECLARED",
+      "cultures": [
+        "forge",
+        "alpha"
+      ],
+      "reason": "forge_005 initiated hostilities",
+      "tension": 100,
+      "timestamp": "2026-02-01T08:27:05.489Z"
+    },
+    {
+      "type": "WAR_DECLARED",
+      "cultures": [
+        "grove",
+        "crimson"
+      ],
+      "reason": "grove_006 initiated hostilities",
+      "tension": 100,
+      "timestamp": "2026-02-01T08:27:15.083Z"
+    },
+    {
+      "type": "WAR_DECLARED",
+      "cultures": [
+        "alpha",
+        "grove"
+      ],
+      "reason": "agent_004 initiated hostilities",
+      "tension": 100,
+      "timestamp": "2026-02-01T08:27:27.402Z"
+    }
+  ],
+  "activeWars": [
+    {
+      "key": "alpha-crimson",
+      "startTime": 1769934403860,
+      "kills": {
+        "alpha": 0,
+        "crimson": 0
+      },
+      "reason": "agent_006 initiated hostilities",
+      "battles": []
+    },
+    {
+      "key": "crimson-forge",
+      "startTime": 1769934410447,
+      "kills": {
+        "forge": 0,
+        "crimson": 0
+      },
+      "reason": "forge_003 initiated hostilities",
+      "battles": []
+    },
+    {
+      "key": "forge-grove",
+      "startTime": 1769934415446,
+      "kills": {
+        "grove": 0,
+        "forge": 0
+      },
+      "reason": "grove_004 initiated combat",
+      "battles": []
+    },
+    {
+      "key": "alpha-forge",
+      "startTime": 1769934425489,
+      "kills": {
+        "forge": 0,
+        "alpha": 0
+      },
+      "reason": "forge_005 initiated hostilities",
+      "battles": []
+    },
+    {
+      "key": "crimson-grove",
+      "startTime": 1769934435083,
+      "kills": {
+        "grove": 0,
+        "crimson": 0
+      },
+      "reason": "grove_006 initiated hostilities",
+      "battles": []
+    },
+    {
+      "key": "alpha-grove",
+      "startTime": 1769934447402,
+      "kills": {
+        "alpha": 0,
+        "grove": 0
+      },
+      "reason": "agent_004 initiated hostilities",
+      "battles": []
+    }
+  ],
+  "killCounts": {}
+}

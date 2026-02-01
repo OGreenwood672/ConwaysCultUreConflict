@@ -17,6 +17,7 @@ from .phase_generator import PhaseGenerator
 from .dialogue_generator import DialogueGenerator
 from .culture_updater import CultureUpdater, CultureEvent
 from .output_writer import OutputWriter
+from .conflict_tracker import ConflictTracker
 
 
 class BrainService:
@@ -54,6 +55,9 @@ class BrainService:
             self.llm_client,
             use_mock=use_mock_llm
         )
+
+        # Conflict tracker
+        self.conflict_tracker = ConflictTracker(world_path, output_dir)
 
         # Output writer
         self.output_writer = OutputWriter(output_dir)
@@ -227,6 +231,14 @@ class BrainService:
                 if culture_agents:
                     await self.culture_updater.update(culture_agents, culture_id)
             self._last_culture_update = datetime.utcnow()
+
+        # 7. Update conflict tracking
+        try:
+            conflict_updates = self.conflict_tracker.update_from_game_state()
+            if conflict_updates.get("wars_updated") or conflict_updates.get("agents_updated"):
+                print(f"[Brain] Conflict updates: {len(conflict_updates.get('wars_updated', []))} wars, {len(conflict_updates.get('agents_updated', []))} agents")
+        except Exception as e:
+            print(f"[Brain] Conflict tracking error: {e}")
 
     def _dialogue_pool_needs_refresh(self) -> bool:
         """Check if dialogue pool needs refreshing."""
