@@ -1,0 +1,93 @@
+{
+  "colors": [
+    {
+      "culture_id": 0,
+      "position": [
+        974,
+        738
+      ]
+    },
+    {
+      "culture_id": 1,
+      "position": [
+        974,
+        738
+      ]
+    },
+    {
+      "culture_id": 2,
+      "position": [
+        974,
+        738
+      ]
+    },
+    {
+      "culture_id": 3,
+      "position": [
+        974,
+        738
+      ]
+    },
+    {
+      "culture_id": 4,
+      "position": [
+        974,
+        738
+      ]
+    },
+    {
+      "culture_id": 5,
+      "position": [
+        974,
+        738
+      ]
+    },
+    {
+      "culture_id": 6,
+      "position": [
+        974,
+        738
+      ]
+    },
+    {
+      "culture_id": 7,
+      "position": [
+        974,
+        738
+      ]
+    },
+    {
+      "culture_id": 8,
+      "position": [
+        974,
+        738
+      ]
+    }
+  ],
+  "tools": {
+    "pen": [
+      1009,
+      890
+    ],
+    "rectangle": [
+      1009,
+      890
+    ],
+    "eraser": [
+      990,
+      972
+    ]
+  },
+  "canvas": {
+    "top_left": [
+      990,
+      972
+    ],
+    "bottom_right": [
+      957,
+      975
+    ],
+    "width": -33,
+    "height": 3
+  }
+}
