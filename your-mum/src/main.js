@@ -12,6 +12,20 @@ let currentHistoryIndex = 0
 
 document.querySelector('#app').innerHTML = `
   <div class="container">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+      :root {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      }
+      h1 {
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .timestamp, .attr-value, .slider-labels {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+      }
+    </style>
     <h1>Culture Attributes</h1>
     <div class="culture-selector">
       <label for="culture-select">Select Culture:</label>
